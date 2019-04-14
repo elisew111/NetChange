@@ -62,6 +62,20 @@ namespace NetwProg
 
                         Console.WriteLine("Buur toegevoegd");
                     }
+                    if (input.StartsWith("D")) //delete buurt
+                    {
+                        int poort = int.Parse(input.Split()[1]);
+                        Program.Buren.Remove(poort);
+                    }
+                    if (input.StartsWith("F"))
+                    {
+                        string[] delen = input.Split(new char[] { ' ' }, 4);
+                        int dest = int.Parse(delen[1]);
+                        int _length = int.Parse(delen[2]) + 1;
+                        string _closest = delen[3];
+
+                        Program.EditPath(dest, _closest, _length);
+                    }
                 }
             }
             catch { }
