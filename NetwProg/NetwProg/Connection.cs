@@ -43,7 +43,6 @@ namespace NetwProg
         // Deze loop leest wat er binnenkomt en print dit
         public void ReaderThread()
         {
-            Program program = new Program();
             try
             {
                 while (true)
@@ -59,7 +58,8 @@ namespace NetwProg
                     {
                         int poort = int.Parse(input.Split()[1]);
                         
-                        program.AddBuur(poort);
+                        Program.EditPath(poort, poort.ToString(), 1);
+
                         Console.WriteLine("Buur toegevoegd");
                     }
                 }
