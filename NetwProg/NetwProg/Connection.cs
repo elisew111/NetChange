@@ -13,6 +13,7 @@ namespace NetwProg
     {
         public StreamReader Read;
         public StreamWriter Write;
+        static readonly object lockobj = new object(); //lock
 
         // Connection heeft 2 constructoren: deze constructor wordt gebruikt als wij CLIENT worden bij een andere SERVER
         public Connection(int port)
@@ -48,33 +49,53 @@ namespace NetwProg
                 while (true)
                 {
                     string input = Read.ReadLine();
-                    if (input.StartsWith("P")) //print
+                    if (input.StartsWith("Print")) //print
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 2);
                         Console.WriteLine(delen[1]);
 
                     }
-                    if (input.StartsWith("B")) //nieuwe buur
+                    if (input.StartsWith("Buur")) //nieuwe buur
                     {
                         int poort = int.Parse(input.Split()[1]);
-                        
-                        Program.EditPath(poort, poort.ToString(), 1);
 
-                        Console.WriteLine("Buur toegevoegd");
+                        Program.EditPath(poort, poort.ToString(), 1);
+                        
                     }
-                    if (input.StartsWith("D")) //delete buurt
+                    if (input.StartsWith("Delete")) //delete buurt
                     {
                         int poort = int.Parse(input.Split()[1]);
                         Program.Buren.Remove(poort);
+                        Program.DeletePaths(poort.ToString());
+                        Write.WriteLine("Verboken: " + poort);
                     }
-                    if (input.StartsWith("F"))
+                    if (input.StartsWith("Forward"))
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 4);
                         int dest = int.Parse(delen[1]);
                         int _length = int.Parse(delen[2]) + 1;
                         string _closest = delen[3];
-
+                        
                         Program.EditPath(dest, _closest, _length);
+                    }
+                    if (input.StartsWith("Doorsturen"))
+                    {
+                        string[] delen = input.Split(new char[] { ' ' }, 4);
+                        int poort = int.Parse(delen[1]);
+                        string bericht = delen[3];
+                        Program.Bericht(poort, bericht);
+                    }
+                    if (input.StartsWith("GetPath"))
+                    {
+                        string[] delen = input.Split(new char[] { ' ' }, 3);
+                        int poort = int.Parse(delen[1]);
+                        int dest = int.Parse(delen[2]);
+                        if (Program.Paden.ContainsKey(dest))
+                        {
+                            Path pad = new Path() { length = Program.Paden[dest].length, closest = Program.Paden[dest].closest };
+                            KeyValuePair<int, Path> path = new KeyValuePair<int, Path> (dest, pad);
+                            Program.StuurPad(Program.Buren[poort], path);
+                        }
                     }
                 }
             }

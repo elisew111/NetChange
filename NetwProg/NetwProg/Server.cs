@@ -34,7 +34,7 @@ namespace NetwProg
                 // De server weet niet wat de poort is van de client die verbinding maakt, de client geeft dus als onderdeel van het protocol als eerst een bericht met zijn poort
                 int zijnPoort = int.Parse(clientIn.ReadLine().Split()[1]);
 
-                Console.WriteLine("Client maakt verbinding: " + zijnPoort);
+                Console.WriteLine("Verbonden: " + zijnPoort);
 
                 // Zet de nieuwe verbinding in de verbindingslijst
                 Program.Buren.Add(zijnPoort, new Connection(clientIn, clientOut));
