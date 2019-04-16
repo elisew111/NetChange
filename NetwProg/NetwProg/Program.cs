@@ -14,7 +14,7 @@ namespace NetwProg
         static public Dictionary<int, Connection> Buren = new Dictionary<int, Connection>(); //dictionary van buren
         static public Dictionary<int, Path> Paden = new Dictionary<int, Path>(); // en een van kortste paden naar anderen
         
-        static readonly object lockobj = new object(); //lock
+        static public readonly object lockobj = new object(); //lock
 
         static void Main(string[] args)
         {
@@ -28,10 +28,11 @@ namespace NetwProg
             for(int i = 1; i < args.Length; i++)
             {
                 int buur = int.Parse(args[i]);
-                if (!Buren.ContainsKey(buur) && !(buur <= MijnPoort))
-                {
-                    Connect(buur);
-                }
+                
+                    if (!Buren.ContainsKey(buur) && !(buur <= MijnPoort))
+                    {
+                        Connect(buur);
+                    }
             }
 
             new Thread(() => ReadLoop()).Start();
@@ -49,27 +50,27 @@ namespace NetwProg
                 {
                     //toon routing table
 
-
-                    foreach (KeyValuePair<int, Path> pad in Paden) // print alle paden
+                    lock (lockobj)
                     {
-                        if (pad.Value.length <= 20)
-                        { Console.WriteLine(pad.Key + " " + pad.Value.length + " " + pad.Value.closest); }
-                    }
-
-                    Console.WriteLine("//Buren:");
-                    foreach (KeyValuePair<int, Connection> buur in Buren)
-                    {
-                        Console.WriteLine("//" + buur.Key);
+                        foreach (KeyValuePair<int, Path> pad in Paden) // print alle paden
+                        {
+                            if (pad.Value.length <= 20)
+                            { Console.WriteLine(pad.Key + " " + pad.Value.length + " " + pad.Value.closest); }
+                        }
+                    
+                        Console.WriteLine("//Buren:");
+                    
+                        foreach (KeyValuePair<int, Connection> buur in Buren)
+                        {
+                            Console.WriteLine("//" + buur.Key);
+                        }
                     }
                 }
                 if (input.StartsWith("C"))
                 {
                     //Connect
-                    lock (lockobj)
-                    {
-                        int poort = int.Parse(input.Split()[1]);
-                        Connect(poort); 
-                    }
+                    int poort = int.Parse(input.Split()[1]);
+                    Connect(poort); 
 
 
                 }
@@ -85,27 +86,32 @@ namespace NetwProg
                 {
                     //Delete buur
                     int poort = int.Parse(input.Split()[1]);
-                    Buren[poort].Write.WriteLine("Delete " + MijnPoort);
-                    Buren.Remove(poort);
+                    lock (lockobj)
+                    {
+                        Buren[poort].Write.WriteLine("Delete " + MijnPoort);
+                        Buren.Remove(poort);
+                    }
                     DeletePaths(poort.ToString());
                     Console.WriteLine("Verbroken: " + poort);
-
-                    //TODO: vind nieuwe pad
+                    
                 }
             }
         }
 
         public static void DeletePaths(string poort)
         {
-            foreach (KeyValuePair<int, Path> pad in Paden)
+            lock (lockobj)
             {
-                if (pad.Value.closest == poort);
+                foreach (KeyValuePair<int, Path> pad in Paden)
                 {
-                    int key = pad.Key;
-                    Paden[key].length = 25; //TODO: Deze echt verwijderen
-                    foreach (KeyValuePair<int, Connection> buur in Buren)
+                    if (pad.Value.closest == poort)
                     {
-                        buur.Value.Write.WriteLine("GetPath " + MijnPoort + " " + poort);
+                        int key = pad.Key;
+                        Paden[key].length = 25; //TODO: Deze echt verwijderen
+                        foreach (KeyValuePair<int, Connection> buur in Buren)
+                            {
+                                buur.Value.Write.WriteLine("GetPath " + MijnPoort + " " + poort);
+                            }
                     }
                 }
             }
@@ -114,104 +120,120 @@ namespace NetwProg
 
         public static void Bericht(int poort, string bericht)
         {
-            if (!Buren.ContainsKey(poort))
+            lock (lockobj)
             {
-                if (!Paden.ContainsKey(poort) || Paden[poort].length > 20)
-                {
-                    Console.WriteLine("Poort " + poort + " is niet bekend");
-                    return;
-                }
-                else
-                {
-                    Buren[int.Parse(Paden[poort].closest)].Write.WriteLine("Doorsturen " + poort + " " + MijnPoort + ": " + bericht);
-                    
-                }
+                if (!Buren.ContainsKey(poort))
+                    {
+                        if (!Paden.ContainsKey(poort) || Paden[poort].length > 20)
+                        {
+                            Console.WriteLine("Poort " + poort + " is niet bekend");
+                            return;
+                        }
+                        else
+                        {
+                            Buren[int.Parse(Paden[poort].closest)].Write.WriteLine("Doorsturen " + poort + " " + MijnPoort + ": " + bericht);
+                            Console.WriteLine("Bericht voor " + poort + " doorgestuurd naar " + Paden[poort].closest);
+                        }
+                    }
+
+                    else
+                    {
+                        //Console.WriteLine("bericht verstuurd naar " + poort);
+                        Buren[poort].Write.WriteLine("Print " + bericht);
+                        Console.WriteLine("Bericht voor " + poort + " doorgestuurd naar " + Paden[poort].closest);
+                    }
+
+                
             }
-            else
-            {
-                //Console.WriteLine("bericht verstuurd naar " + poort);
-                Buren[poort].Write.WriteLine("Print " + bericht);
-            }
-            Console.WriteLine("Bericht voor " + poort + " doorgestuurd naar " + Paden[poort].closest);
+            
         }
 
         public static void Connect(int poort)
         {
-            // Leg verbinding aan (als client)
-            if (Buren.ContainsKey(poort))
-            { } //Console.WriteLine("Hier is al verbinding naar!");
-            else
-            {
-                AddBuur(poort);
-                EditPath(poort, poort.ToString(), 1);
-                
-            }
+            //lock (lockobj)
+            //{
+                // Leg verbinding aan (als client)
+                if (Buren.ContainsKey(poort))
+                { } //Console.WriteLine("Hier is al verbinding naar!");
+                else
+                {
+                    AddBuur(poort);
+                    EditPath(poort, poort.ToString(), 1);
 
-            Buren[poort].Write.WriteLine("Buur " + MijnPoort);
+                }
+
+                Buren[poort].Write.WriteLine("Buur " + MijnPoort);
+            //}
         }
 
         public static void AddBuur(int buur)
         {
-
-            while (!Buren.ContainsKey(buur))
+            lock (lockobj)
             {
-                try
+                while (!Buren.ContainsKey(buur))
                 {
-                    Connection nieuweBuur = new Connection(buur);
-                    Buren.Add(buur, nieuweBuur); //voeg buur toe aan burenlijst
-                    Console.WriteLine("Verbonden: " + (buur)); //zeg dat je verbonden bent
-                    StuurBuren(nieuweBuur);
-             
+                    try
+                    {
+                        Connection nieuweBuur = new Connection(buur);
+                        Buren.Add(buur, nieuweBuur); //voeg buur toe aan burenlijst
+                        Console.WriteLine("Verbonden: " + (buur)); //zeg dat je verbonden bent
+                        StuurBuren(nieuweBuur);
+
+                    }
+                    catch { }
                 }
-                catch { }
             }
         }
         
 
         public static void StuurBuren(Connection buur) //stuur alle paden naar 1 buur
         {
-            foreach(KeyValuePair<int, Path> pad in Paden)
+            lock (lockobj)
             {
-                StuurPad(buur, pad);
+                foreach (KeyValuePair<int, Path> pad in Paden)
+                {
+                    StuurPad(buur, pad);
+                }
             }
         }
 
         public static void StuurPad(Connection buur, KeyValuePair<int, Path> pad) //stuur 1 pad naar 1 buur
         {
-            /*string _closest;
-            if (pad.Value.closest == "local")
-            { _closest = MijnPoort.ToString(); }
-            else
-            { _closest = pad.Value.closest; }*/
-
-            buur.Write.WriteLine("Forward " + pad.Key + " " + pad.Value.length + " " + MijnPoort.ToString());
+           buur.Write.WriteLine("Forward " + pad.Key + " " + pad.Value.length + " " + MijnPoort.ToString());
         }
 
         public static void EditPath(int dest, string _closest, int _length)
         {
-            if (Paden.ContainsKey(dest) && _length > Paden[dest].length)
-            { return; }
-            else
+            lock (lockobj)
             {
-                if (!Paden.ContainsKey((dest)))
-                {
-                    Path pad = new Path() { length = _length, closest = _closest };
-                    Paden.Add(dest, pad);
-                }
+
+                if (Paden.ContainsKey(dest) && _length > Paden[dest].length)
+                { return; }
                 else
                 {
-                    Paden[dest].length = _length;
-                    Paden[dest].closest = _closest;
+                    if (!Paden.ContainsKey((dest)))
+                    {
+                        Path pad = new Path() { length = _length, closest = _closest };
+                        Paden.Add(dest, pad);
+                    }
+                    else
+                    {
+                        Paden[dest].length = _length;
+                        Paden[dest].closest = _closest;
+                    }
+                    Console.WriteLine("Afstand naar " + dest + " is nu " + _length + " via " + _closest);
                 }
-                Console.WriteLine("Afstand naar " + dest + " is nu " + _length + " via " + _closest);
             }
 
 
             if (_length < 20)
             {
-                foreach (KeyValuePair<int, Connection> buur in Buren)
+                lock (lockobj)
                 {
-                    buur.Value.Write.WriteLine("Forward " + dest + " " + _length + " " + MijnPoort);
+                    foreach (KeyValuePair<int, Connection> buur in Buren)
+                    {
+                        buur.Value.Write.WriteLine("Forward " + dest + " " + _length + " " + MijnPoort);
+                    }
                 }
                 //Console.WriteLine("Verbonden: " + dest);
             }

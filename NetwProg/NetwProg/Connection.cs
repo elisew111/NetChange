@@ -13,7 +13,6 @@ namespace NetwProg
     {
         public StreamReader Read;
         public StreamWriter Write;
-        static readonly object lockobj = new object(); //lock
 
         // Connection heeft 2 constructoren: deze constructor wordt gebruikt als wij CLIENT worden bij een andere SERVER
         public Connection(int port)
@@ -44,6 +43,7 @@ namespace NetwProg
         // Deze loop leest wat er binnenkomt en print dit
         public void ReaderThread()
         {
+
             try
             {
                 while (true)
@@ -65,7 +65,10 @@ namespace NetwProg
                     if (input.StartsWith("Delete")) //delete buurt
                     {
                         int poort = int.Parse(input.Split()[1]);
-                        Program.Buren.Remove(poort);
+                        lock (Program.lockobj)
+                        {
+                            Program.Buren.Remove(poort);
+                        }
                         Program.DeletePaths(poort.ToString());
                         Write.WriteLine("Verboken: " + poort);
                     }
@@ -75,7 +78,7 @@ namespace NetwProg
                         int dest = int.Parse(delen[1]);
                         int _length = int.Parse(delen[2]) + 1;
                         string _closest = delen[3];
-                        
+
                         Program.EditPath(dest, _closest, _length);
                     }
                     if (input.StartsWith("Doorsturen"))
@@ -90,11 +93,14 @@ namespace NetwProg
                         string[] delen = input.Split(new char[] { ' ' }, 3);
                         int poort = int.Parse(delen[1]);
                         int dest = int.Parse(delen[2]);
-                        if (Program.Paden.ContainsKey(dest))
+                        lock (Program.lockobj)
                         {
-                            Path pad = new Path() { length = Program.Paden[dest].length, closest = Program.Paden[dest].closest };
-                            KeyValuePair<int, Path> path = new KeyValuePair<int, Path> (dest, pad);
-                            Program.StuurPad(Program.Buren[poort], path);
+                            if (Program.Paden.ContainsKey(dest))
+                            {
+                                Path pad = new Path() { length = Program.Paden[dest].length, closest = Program.Paden[dest].closest };
+                                KeyValuePair<int, Path> path = new KeyValuePair<int, Path>(dest, pad);
+                                Program.StuurPad(Program.Buren[poort], path);
+                            }
                         }
                     }
                 }
