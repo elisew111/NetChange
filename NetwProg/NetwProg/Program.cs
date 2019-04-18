@@ -13,6 +13,8 @@ namespace NetwProg
 
         static public Dictionary<int, Connection> Buren = new Dictionary<int, Connection>(); //dictionary van buren
         static public Dictionary<int, Path> Paden = new Dictionary<int, Path>(); // en een van kortste paden naar anderen
+
+        //TODO: onthouden welke paden je als laatst gehoord hebt van elke buur
         
         static public readonly object lockobj = new object(); //lock
 
@@ -28,11 +30,13 @@ namespace NetwProg
             for(int i = 1; i < args.Length; i++)
             {
                 int buur = int.Parse(args[i]);
-                
-                    if (!Buren.ContainsKey(buur) && !(buur <= MijnPoort))
+                lock (lockobj)
+                {
+                    if (buur > MijnPoort)
                     {
                         Connect(buur);
                     }
+                }
             }
 
             new Thread(() => ReadLoop()).Start();
@@ -86,37 +90,83 @@ namespace NetwProg
                 {
                     //Delete buur
                     int poort = int.Parse(input.Split()[1]);
-                    lock (lockobj)
+                    if (Buren.ContainsKey(poort))
                     {
                         Buren[poort].Write.WriteLine("Delete " + MijnPoort);
-                        Buren.Remove(poort);
+                        Delete(poort);
                     }
-                    DeletePaths(poort.ToString());
-                    Console.WriteLine("Verbroken: " + poort);
                     
+
                 }
             }
         }
 
-        public static void DeletePaths(string poort)
+        public static void Delete(int poort)
         {
             lock (lockobj)
             {
+                if (Buren.ContainsKey(poort))
+                {
+                    Buren.Remove(poort);
+                }
+
+                //DeletePaths(poort.ToString());
+                
                 foreach (KeyValuePair<int, Path> pad in Paden)
                 {
-                    if (pad.Value.closest == poort)
+                    if (pad.Value.closest == poort.ToString())
                     {
-                        int key = pad.Key;
-                        Paden[key].length = 25; //TODO: Deze echt verwijderen
+                        Paden[pad.Key].length = 25; //TODO: Deze echt verwijderen -> of vervang met goeie
+
                         foreach (KeyValuePair<int, Connection> buur in Buren)
-                            {
-                                buur.Value.Write.WriteLine("GetPath " + MijnPoort + " " + poort);
-                            }
+                        {
+                            buur.Value.Write.WriteLine("ForwardDelete " + poort.ToString() + " " + MijnPoort.ToString());
+                            //ForwardDelete(int.Parse(poort.ToString()), MijnPoort.ToString());
+                        }
+
+                    }
+                }
+
+                foreach(KeyValuePair<int, Path> pad in Paden)
+                {
+                    if(pad.Value.length > 20)
+                    {
+                        foreach (KeyValuePair<int, Connection> buur in Buren)
+                        {
+
+                            buur.Value.Write.WriteLine("GetPath " + MijnPoort + " " + pad.Key);
+                        }
+                    }
+                }
+             
+                
+            }
+            Console.WriteLine("Verbroken: " + poort);
+            
+        }
+       
+
+        public static void DeletePaths(string poort)
+        {
+            
+            
+            
+        }
+        
+        public static void ForwardDelete(int dest, string _closest)
+        {
+            foreach(KeyValuePair<int, Path> pad in Paden)
+            {
+                if(pad.Key == dest && pad.Value.closest == _closest)
+                {
+                    Paden[dest].length = 25;
+                    foreach (KeyValuePair<int, Connection> buur in Buren)
+                    {
+                        buur.Value.Write.WriteLine("ForwardDelete " + dest + " " + MijnPoort.ToString());
                     }
                 }
             }
         }
-        
 
         public static void Bericht(int poort, string bericht)
         {
@@ -150,20 +200,16 @@ namespace NetwProg
 
         public static void Connect(int poort)
         {
-            //lock (lockobj)
-            //{
-                // Leg verbinding aan (als client)
-                if (Buren.ContainsKey(poort))
-                { } //Console.WriteLine("Hier is al verbinding naar!");
-                else
+                if (!Buren.ContainsKey(poort))
                 {
                     AddBuur(poort);
                     EditPath(poort, poort.ToString(), 1);
-
-                }
-
-                Buren[poort].Write.WriteLine("Buur " + MijnPoort);
-            //}
+                    Buren[poort].Write.WriteLine("Buur " + MijnPoort);
+                } 
+                else
+            {
+                StuurBuren(Buren[poort]);
+            }
         }
 
         public static void AddBuur(int buur)
@@ -177,11 +223,12 @@ namespace NetwProg
                         Connection nieuweBuur = new Connection(buur);
                         Buren.Add(buur, nieuweBuur); //voeg buur toe aan burenlijst
                         Console.WriteLine("Verbonden: " + (buur)); //zeg dat je verbonden bent
-                        StuurBuren(nieuweBuur);
 
                     }
                     catch { }
                 }
+
+                StuurBuren(Buren[buur]);
             }
         }
         
@@ -192,15 +239,11 @@ namespace NetwProg
             {
                 foreach (KeyValuePair<int, Path> pad in Paden)
                 {
-                    StuurPad(buur, pad);
+                    buur.Write.WriteLine("Forward " + pad.Key + " " + pad.Value.length + " " + MijnPoort.ToString());
                 }
             }
         }
-
-        public static void StuurPad(Connection buur, KeyValuePair<int, Path> pad) //stuur 1 pad naar 1 buur
-        {
-           buur.Write.WriteLine("Forward " + pad.Key + " " + pad.Value.length + " " + MijnPoort.ToString());
-        }
+        
 
         public static void EditPath(int dest, string _closest, int _length)
         {

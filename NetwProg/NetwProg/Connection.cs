@@ -60,17 +60,19 @@ namespace NetwProg
                         int poort = int.Parse(input.Split()[1]);
 
                         Program.EditPath(poort, poort.ToString(), 1);
-                        
+                        Program.StuurBuren(Program.Buren[poort]);
+
                     }
                     if (input.StartsWith("Delete")) //delete buurt
                     {
                         int poort = int.Parse(input.Split()[1]);
-                        lock (Program.lockobj)
+                        Program.Delete(poort);
+                        /*lock (Program.lockobj)
                         {
                             Program.Buren.Remove(poort);
                         }
                         Program.DeletePaths(poort.ToString());
-                        Write.WriteLine("Verboken: " + poort);
+                        Write.WriteLine("Verboken: " + poort);*/
                     }
                     if (input.StartsWith("Forward"))
                     {
@@ -95,13 +97,15 @@ namespace NetwProg
                         int dest = int.Parse(delen[2]);
                         lock (Program.lockobj)
                         {
-                            if (Program.Paden.ContainsKey(dest))
-                            {
-                                Path pad = new Path() { length = Program.Paden[dest].length, closest = Program.Paden[dest].closest };
-                                KeyValuePair<int, Path> path = new KeyValuePair<int, Path>(dest, pad);
-                                Program.StuurPad(Program.Buren[poort], path);
-                            }
+                                Program.Buren[poort].Write.WriteLine("Forward " + dest + " " + Program.Paden[dest].length + " " + Program.MijnPoort.ToString());
                         }
+                    }
+                    if (input.StartsWith("ForwardDelete"))
+                    {
+                        string[] delen = input.Split(new char[] { ' ' }, 3);
+                        int dest = int.Parse(delen[1]);
+                        string closest = delen[2];
+                        Program.ForwardDelete(dest, closest);
                     }
                 }
             }
