@@ -14,6 +14,8 @@ namespace NetwProg
         static public Dictionary<int, Connection> Buren = new Dictionary<int, Connection>(); //dictionary van buren
         static public Dictionary<int, Path> Paden = new Dictionary<int, Path>(); // en een van kortste paden naar anderen
 
+        static public Dictionary<int, Dictionary<int, Path>> RoutingTables = new Dictionary<int, Dictionary<int, Path>>();
+
         //TODO: onthouden welke paden je als laatst gehoord hebt van elke buur
         
         static public readonly object lockobj = new object(); //lock
@@ -116,7 +118,14 @@ namespace NetwProg
                 {
                     if (pad.Value.closest == poort.ToString())
                     {
-                        Paden[pad.Key].length = 25; //TODO: Deze echt verwijderen -> of vervang met goeie
+                        //Paden[pad.Key].length = 25; //TODO: Deze echt verwijderen -> of vervang met goeie
+                        int _length = 25;
+                        foreach(KeyValuePair<int, Path> table in RoutingTables[poort])
+                        {
+                            if(table.Value.length < _length)
+                            { _length = table.Value.length; }
+                        }
+                        Paden[pad.Key].length = _length;
 
                         foreach (KeyValuePair<int, Connection> buur in Buren)
                         {
@@ -127,7 +136,7 @@ namespace NetwProg
                     }
                 }
 
-                foreach(KeyValuePair<int, Path> pad in Paden)
+                /*foreach(KeyValuePair<int, Path> pad in Paden)
                 {
                     if(pad.Value.length > 20)
                     {
@@ -137,7 +146,7 @@ namespace NetwProg
                             buur.Value.Write.WriteLine("GetPath " + MijnPoort + " " + pad.Key);
                         }
                     }
-                }
+                }*/
              
                 
             }
@@ -155,14 +164,24 @@ namespace NetwProg
         
         public static void ForwardDelete(int dest, string _closest)
         {
-            foreach(KeyValuePair<int, Path> pad in Paden)
+            lock (lockobj)
             {
-                if(pad.Key == dest && pad.Value.closest == _closest)
+                foreach (KeyValuePair<int, Path> pad in Paden)
                 {
-                    Paden[dest].length = 25;
-                    foreach (KeyValuePair<int, Connection> buur in Buren)
+                    if (pad.Key == dest && pad.Value.closest == _closest)
                     {
-                        buur.Value.Write.WriteLine("ForwardDelete " + dest + " " + MijnPoort.ToString());
+                        int _length = 25;
+                        foreach (KeyValuePair<int, Path> table in RoutingTables[dest])
+                        {
+                            if (table.Value.length < _length)
+                            { _length = table.Value.length; }
+                        }
+                        Paden[pad.Key].length = _length;
+
+                        foreach (KeyValuePair<int, Connection> buur in Buren)
+                        {
+                            buur.Value.Write.WriteLine("ForwardDelete " + dest + " " + MijnPoort.ToString());
+                        }
                     }
                 }
             }
@@ -239,7 +258,7 @@ namespace NetwProg
             {
                 foreach (KeyValuePair<int, Path> pad in Paden)
                 {
-                    buur.Write.WriteLine("Forward " + pad.Key + " " + pad.Value.length + " " + MijnPoort.ToString());
+                    buur.Write.WriteLine("Forward " + pad.Key + " " + pad.Value.length + " " + pad.Value.closest + " " + MijnPoort.ToString());
                 }
             }
         }
@@ -275,7 +294,7 @@ namespace NetwProg
                 {
                     foreach (KeyValuePair<int, Connection> buur in Buren)
                     {
-                        buur.Value.Write.WriteLine("Forward " + dest + " " + _length + " " + MijnPoort);
+                        buur.Value.Write.WriteLine("Forward " + dest + " " + _length + " " + _closest + " " + MijnPoort);
                     }
                 }
                 //Console.WriteLine("Verbonden: " + dest);

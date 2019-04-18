@@ -43,19 +43,17 @@ namespace NetwProg
         // Deze loop leest wat er binnenkomt en print dit
         public void ReaderThread()
         {
-
-            try
-            {
                 while (true)
                 {
                     string input = Read.ReadLine();
-                    if (input.StartsWith("Print")) //print
+                    string type = input.Split(' ')[0];
+                    if (type == "Print") //print
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 2);
                         Console.WriteLine(delen[1]);
 
                     }
-                    if (input.StartsWith("Buur")) //nieuwe buur
+                    if (type == "Buur") //nieuwe buur
                     {
                         int poort = int.Parse(input.Split()[1]);
 
@@ -63,44 +61,50 @@ namespace NetwProg
                         Program.StuurBuren(Program.Buren[poort]);
 
                     }
-                    if (input.StartsWith("Delete")) //delete buurt
+                    if (type == "Delete") //delete buurt
                     {
                         int poort = int.Parse(input.Split()[1]);
                         Program.Delete(poort);
-                        /*lock (Program.lockobj)
-                        {
-                            Program.Buren.Remove(poort);
-                        }
-                        Program.DeletePaths(poort.ToString());
-                        Write.WriteLine("Verboken: " + poort);*/
                     }
-                    if (input.StartsWith("Forward"))
+                    if (type == "Forward")
                     {
-                        string[] delen = input.Split(new char[] { ' ' }, 4);
+                        string[] delen = input.Split(new char[] { ' ' }, 5);
                         int dest = int.Parse(delen[1]);
-                        int _length = int.Parse(delen[2]) + 1;
+                        int _length = int.Parse(delen[2]);
                         string _closest = delen[3];
+                        int poort = int.Parse(delen[4]);
 
-                        Program.EditPath(dest, _closest, _length);
+                        Program.EditPath(dest, poort.ToString(), (_length + 1));
+
+                        lock (Program.lockobj)
+                        {
+                            if (!Program.RoutingTables.ContainsKey(dest))
+                            {
+                                Dictionary<int, Path> table = new Dictionary<int, Path>();
+                                Program.RoutingTables.Add(dest, table);
+                            }
+                            Path pad = new Path() { closest = _closest, length = _length };
+                            Program.RoutingTables[dest][poort]= pad;
+                        }
                     }
-                    if (input.StartsWith("Doorsturen"))
+                    if (type == "Doorsturen")
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 4);
                         int poort = int.Parse(delen[1]);
                         string bericht = delen[3];
                         Program.Bericht(poort, bericht);
                     }
-                    if (input.StartsWith("GetPath"))
+                    if (type == "GetPath")
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 3);
                         int poort = int.Parse(delen[1]);
                         int dest = int.Parse(delen[2]);
                         lock (Program.lockobj)
                         {
-                                Program.Buren[poort].Write.WriteLine("Forward " + dest + " " + Program.Paden[dest].length + " " + Program.MijnPoort.ToString());
+                                Program.Buren[poort].Write.WriteLine("Forward " + dest + " " + Program.Paden[dest].length + " " + Program.Paden[dest].closest + " " + Program.MijnPoort.ToString());
                         }
                     }
-                    if (input.StartsWith("ForwardDelete"))
+                    if (type == "ForwardDelete")
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 3);
                         int dest = int.Parse(delen[1]);
@@ -108,8 +112,7 @@ namespace NetwProg
                         Program.ForwardDelete(dest, closest);
                     }
                 }
-            }
-            catch { }
+            
             
         }
     }

@@ -19,16 +19,16 @@ Let op: deze berekening is niet het definitieve cijfer. Dit is alleen maar een a
 ------------------------------------
 
 Testcase;Status;Tijd;Omschrijving
-Standaard;Correct;4,41;Opstarten netwerk
+Standaard;Correct;5,22;Opstarten netwerk
 Standaard;Correct;0,52;Berichten sturen
-Standaard;Correct;2,43;Verbindingen aanleggen met C
-Standaard;Correct;0,14;Berichten sturen in gewijzigd netwerk
-Standaard;Incorrect;5,42;Verbindingen verbreken
-Random;Incorrect;4,69;Opstarten netwerk
+Standaard;Correct;2,42;Verbindingen aanleggen met C
+Standaard;Correct;0,09;Berichten sturen in gewijzigd netwerk
+Standaard;Incorrect;5,48;Verbindingen verbreken
+Random;Incorrect;4,95;Opstarten netwerk
 
 ------------------------------------
 
-1;Standaard;Correct;4,41;Opstarten netwerk
+1;Standaard;Correct;5,22;Opstarten netwerk
 Test 1 - Standaard
 
 Correct: opstarten geslaagd, R-tabel in orde.
@@ -40,95 +40,98 @@ start NetwProg.exe 55502 55500 55501 55503 55504
 start NetwProg.exe 55503 55502 55505
 start NetwProg.exe 55504 55502 55505
 start NetwProg.exe 55505 55503 55504
-55501 < Verbonden: 55500
-55505 < Verbonden: 55504
-55500 < Verbonden: 55501
 55502 < Verbonden: 55501
-55500 < Afstand naar 55501 is nu 1 via 55501
-55505 < Verbonden: 55503
-55504 < Verbonden: 55505
 55501 < Verbonden: 55502
-55503 < Verbonden: 55502
-55504 < Afstand naar 55505 is nu 1 via 55505
 55501 < Afstand naar 55502 is nu 1 via 55502
+55505 < Verbonden: 55503
+55503 < Verbonden: 55505
+55505 < Afstand naar 55503 is nu 1 via 55503
+55503 < Afstand naar 55505 is nu 1 via 55505
+55505 < Afstand naar 55503 is nu 1 via 55503
+55503 < Afstand naar 55505 is nu 1 via 55505
+55501 < Verbonden: 55500
+55500 < Verbonden: 55501
+55501 < Afstand naar 55500 is nu 1 via 55500
+55500 < Afstand naar 55501 is nu 1 via 55501
+55501 < Afstand naar 55500 is nu 1 via 55500
+55503 < Verbonden: 55502
 55502 < Verbonden: 55503
 55502 < Afstand naar 55503 is nu 1 via 55503
-55501 < Afstand naar 55500 is nu 1 via 55500
-55501 < Afstand naar 55500 is nu 1 via 55500
-55503 < Verbonden: 55505
+55503 < Afstand naar 55502 is nu 1 via 55502
+55505 < Afstand naar 55502 is nu 2 via 55503
+55505 < Verbonden: 55504
+55503 < Afstand naar 55502 is nu 1 via 55502
+55505 < Afstand naar 55502 is nu 2 via 55503
+55504 < Verbonden: 55505
 55505 < Afstand naar 55504 is nu 1 via 55504
-55505 < Afstand naar 55504 is nu 1 via 55504
+55503 < Afstand naar 55504 is nu 2 via 55505
 55504 < Afstand naar 55505 is nu 1 via 55505
-55505 < Afstand naar 55503 is nu 1 via 55503
-55504 < Afstand naar 55503 is nu 2 via 55505
-55503 < Afstand naar 55505 is nu 1 via 55505
-55505 < Afstand naar 55503 is nu 1 via 55503
-55504 < Afstand naar 55503 is nu 2 via 55505
-55502 < Afstand naar 55501 is nu 1 via 55501
-55502 < Afstand naar 55501 is nu 1 via 55501
-55501 < Afstand naar 55502 is nu 1 via 55502
-55501 < Afstand naar 55503 is nu 2 via 55502
-55502 < Afstand naar 55500 is nu 2 via 55501
-55502 < Afstand naar 55500 is nu 2 via 55501
-55503 < Afstand naar 55502 is nu 1 via 55502
-55505 < Afstand naar 55502 is nu 2 via 55503
+55505 < Afstand naar 55504 is nu 1 via 55504
+55503 < Afstand naar 55504 is nu 2 via 55505
 55504 < Afstand naar 55502 is nu 3 via 55505
-55503 < Afstand naar 55502 is nu 1 via 55502
-55505 < Afstand naar 55502 is nu 2 via 55503
+55504 < Afstand naar 55505 is nu 1 via 55505
+55504 < Afstand naar 55503 is nu 2 via 55505
 55504 < Afstand naar 55502 is nu 3 via 55505
-55503 < Afstand naar 55501 is nu 2 via 55502
-55505 < Afstand naar 55501 is nu 3 via 55503
-55504 < Afstand naar 55501 is nu 4 via 55505
-55503 < Afstand naar 55501 is nu 2 via 55502
-55505 < Afstand naar 55501 is nu 3 via 55503
-55504 < Afstand naar 55501 is nu 4 via 55505
-55503 < Afstand naar 55500 is nu 3 via 55502
-55505 < Afstand naar 55500 is nu 4 via 55503
-55504 < Afstand naar 55500 is nu 5 via 55505
-55503 < Afstand naar 55500 is nu 3 via 55502
-55505 < Afstand naar 55500 is nu 4 via 55503
-55504 < Afstand naar 55500 is nu 5 via 55505
-55503 < Afstand naar 55504 is nu 2 via 55505
-55503 < Afstand naar 55504 is nu 2 via 55505
-55503 < Afstand naar 55505 is nu 1 via 55505
-55503 < Afstand naar 55504 is nu 2 via 55505
 55502 < Verbonden: 55500
 55500 < Verbonden: 55502
 55500 < Afstand naar 55502 is nu 1 via 55502
 55500 < Afstand naar 55501 is nu 1 via 55501
-55500 < Afstand naar 55503 is nu 3 via 55501
 55504 < Verbonden: 55502
 55502 < Verbonden: 55504
 55502 < Afstand naar 55504 is nu 1 via 55504
 55503 < Afstand naar 55504 is nu 2 via 55502
 55501 < Afstand naar 55504 is nu 2 via 55502
 55500 < Afstand naar 55504 is nu 3 via 55501
-55502 < Afstand naar 55503 is nu 1 via 55503
+55502 < Afstand naar 55501 is nu 1 via 55501
+55503 < Afstand naar 55501 is nu 2 via 55502
+55505 < Afstand naar 55501 is nu 3 via 55503
+55502 < Afstand naar 55501 is nu 1 via 55501
+55503 < Afstand naar 55501 is nu 2 via 55502
+55505 < Afstand naar 55501 is nu 3 via 55503
+55501 < Afstand naar 55502 is nu 1 via 55502
 55501 < Afstand naar 55503 is nu 2 via 55502
 55500 < Afstand naar 55503 is nu 3 via 55501
+55501 < Afstand naar 55504 is nu 2 via 55502
+55502 < Afstand naar 55500 is nu 2 via 55501
+55503 < Afstand naar 55500 is nu 3 via 55502
+55505 < Afstand naar 55500 is nu 4 via 55503
+55502 < Afstand naar 55500 is nu 2 via 55501
+55503 < Afstand naar 55500 is nu 3 via 55502
+55505 < Afstand naar 55500 is nu 4 via 55503
+55502 < Afstand naar 55503 is nu 1 via 55503
 55502 < Afstand naar 55505 is nu 2 via 55503
+55500 < Afstand naar 55504 is nu 3 via 55501
+55501 < Afstand naar 55503 is nu 2 via 55502
+55500 < Afstand naar 55503 is nu 3 via 55501
 55501 < Afstand naar 55505 is nu 3 via 55502
 55500 < Afstand naar 55505 is nu 4 via 55501
-55502 < Afstand naar 55505 is nu 2 via 55503
-55501 < Afstand naar 55505 is nu 3 via 55502
-55500 < Afstand naar 55505 is nu 4 via 55501
+55504 < Afstand naar 55501 is nu 4 via 55505
+55504 < Afstand naar 55501 is nu 4 via 55505
+55504 < Afstand naar 55500 is nu 5 via 55505
+55504 < Afstand naar 55500 is nu 5 via 55505
 55504 < Afstand naar 55502 is nu 1 via 55502
 55505 < Afstand naar 55502 is nu 2 via 55504
 55504 < Afstand naar 55503 is nu 2 via 55502
+55504 < Afstand naar 55502 is nu 1 via 55502
+55505 < Afstand naar 55502 is nu 2 via 55504
+55504 < Afstand naar 55501 is nu 2 via 55502
+55505 < Afstand naar 55501 is nu 3 via 55504
 55504 < Afstand naar 55501 is nu 2 via 55502
 55505 < Afstand naar 55501 is nu 3 via 55504
 55504 < Afstand naar 55500 is nu 3 via 55502
 55505 < Afstand naar 55500 is nu 4 via 55504
-55504 < Afstand naar 55502 is nu 1 via 55502
-55505 < Afstand naar 55502 is nu 2 via 55504
+55504 < Afstand naar 55500 is nu 3 via 55502
+55505 < Afstand naar 55500 is nu 4 via 55504
 55504 < Afstand naar 55503 is nu 2 via 55502
 55502 < Afstand naar 55504 is nu 1 via 55504
-55502 < Afstand naar 55505 is nu 2 via 55504
-55501 < Afstand naar 55504 is nu 2 via 55502
 55503 < Afstand naar 55504 is nu 2 via 55502
+55501 < Afstand naar 55504 is nu 2 via 55502
+55500 < Afstand naar 55504 is nu 3 via 55501
 55500 < Afstand naar 55504 is nu 2 via 55502
-55500 < Afstand naar 55505 is nu 3 via 55502
+55502 < Afstand naar 55505 is nu 2 via 55504
 55501 < Afstand naar 55505 is nu 3 via 55502
+55500 < Afstand naar 55505 is nu 4 via 55501
+55500 < Afstand naar 55505 is nu 3 via 55502
 55502 < Afstand naar 55500 is nu 1 via 55500
 55503 < Afstand naar 55500 is nu 2 via 55502
 55505 < Afstand naar 55500 is nu 3 via 55503
@@ -151,60 +154,60 @@ start NetwProg.exe 55505 55503 55504
 55505 > R
 55500 < 55500 0 local
 55501 < 55501 0 local
-55502 < 55502 0 local
-55500 < 55501 1 55501
-55502 < 55503 1 55503
 55501 < 55502 1 55502
-55500 < 55502 1 55502
-55502 < 55501 1 55501
 55501 < 55500 1 55500
-55500 < 55503 2 55502
-55502 < 55500 1 55500
-55501 < 55503 2 55502
-55500 < 55504 2 55502
-55502 < 55504 1 55504
-55502 < 55505 2 55504
+55502 < 55502 0 local
 55501 < 55504 2 55502
+55502 < 55503 1 55503
+55501 < 55503 2 55502
+55501 < 55505 3 55502
+55502 < 55504 1 55504
+55501 < //Buren:
+55501 < //55502
+55502 < 55501 1 55501
+55501 < //55500
+55502 < 55500 1 55500
+55500 < 55501 1 55501
+55502 < 55505 2 55504
+55502 < //Buren:
+55500 < 55502 1 55502
+55502 < //55503
+55502 < //55501
+55502 < //55504
+55502 < //55500
+55500 < 55504 2 55502
+55500 < 55503 2 55502
 55500 < 55505 3 55502
 55503 < 55503 0 local
-55502 < //Buren:
-55501 < 55505 3 55502
-55500 < //Buren:
-55502 < //55503
 55503 < 55505 1 55505
-55500 < //55501
-55501 < //Buren:
-55502 < //55501
-55500 < //55502
-55501 < //55502
-55502 < //55504
 55503 < 55502 1 55502
-55501 < //55500
-55502 < //55500
-55503 < 55501 2 55502
-55503 < 55500 2 55502
 55503 < 55504 2 55502
-55503 < //Buren:
-55504 < 55504 0 local
-55503 < //55505
-55503 < //55502
-55504 < 55505 1 55505
+55503 < 55501 2 55502
 55505 < 55505 0 local
-55504 < 55503 2 55502
-55505 < 55504 1 55504
+55504 < 55504 0 local
 55505 < 55503 1 55503
-55504 < 55502 1 55502
+55504 < 55505 1 55505
 55505 < 55502 2 55504
-55504 < 55501 2 55502
+55504 < 55502 1 55502
+55505 < 55504 1 55504
+55504 < 55503 2 55502
 55505 < 55501 3 55504
-55504 < 55500 2 55502
-55504 < //Buren:
-55504 < //55505
+55504 < 55501 2 55502
+55503 < 55500 2 55502
 55505 < 55500 3 55504
-55504 < //55502
+55504 < 55500 2 55502
+55503 < //Buren:
 55505 < //Buren:
-55505 < //55504
+55504 < //Buren:
 55505 < //55503
+55503 < //55505
+55504 < //55505
+55505 < //55504
+55503 < //55502
+55504 < //55502
+55500 < //Buren:
+55500 < //55501
+55500 < //55502
 
 Process 55500:
 Verbonden: 55501
@@ -212,12 +215,14 @@ Afstand naar 55501 is nu 1 via 55501
 Verbonden: 55502
 Afstand naar 55502 is nu 1 via 55502
 Afstand naar 55501 is nu 1 via 55501
+Afstand naar 55504 is nu 3 via 55501
 Afstand naar 55503 is nu 3 via 55501
 Afstand naar 55504 is nu 3 via 55501
 Afstand naar 55503 is nu 3 via 55501
 Afstand naar 55505 is nu 4 via 55501
-Afstand naar 55505 is nu 4 via 55501
+Afstand naar 55504 is nu 3 via 55501
 Afstand naar 55504 is nu 2 via 55502
+Afstand naar 55505 is nu 4 via 55501
 Afstand naar 55505 is nu 3 via 55502
 Afstand naar 55502 is nu 1 via 55502
 Afstand naar 55503 is nu 2 via 55502
@@ -227,24 +232,24 @@ Afstand naar 55505 is nu 3 via 55502
 55500 0 local
 55501 1 55501
 55502 1 55502
-55503 2 55502
 55504 2 55502
+55503 2 55502
 55505 3 55502
 //Buren:
 //55501
 //55502
 
 Process 55501:
-Verbonden: 55500
 Verbonden: 55502
 Afstand naar 55502 is nu 1 via 55502
+Verbonden: 55500
 Afstand naar 55500 is nu 1 via 55500
 Afstand naar 55500 is nu 1 via 55500
+Afstand naar 55504 is nu 2 via 55502
 Afstand naar 55502 is nu 1 via 55502
 Afstand naar 55503 is nu 2 via 55502
 Afstand naar 55504 is nu 2 via 55502
 Afstand naar 55503 is nu 2 via 55502
-Afstand naar 55505 is nu 3 via 55502
 Afstand naar 55505 is nu 3 via 55502
 Afstand naar 55504 is nu 2 via 55502
 Afstand naar 55505 is nu 3 via 55502
@@ -252,8 +257,8 @@ Afstand naar 55505 is nu 3 via 55502
 55501 0 local
 55502 1 55502
 55500 1 55500
-55503 2 55502
 55504 2 55502
+55503 2 55502
 55505 3 55502
 //Buren:
 //55502
@@ -263,15 +268,14 @@ Process 55502:
 Verbonden: 55501
 Verbonden: 55503
 Afstand naar 55503 is nu 1 via 55503
-Afstand naar 55501 is nu 1 via 55501
-Afstand naar 55501 is nu 1 via 55501
-Afstand naar 55500 is nu 2 via 55501
-Afstand naar 55500 is nu 2 via 55501
 Verbonden: 55500
 Verbonden: 55504
 Afstand naar 55504 is nu 1 via 55504
+Afstand naar 55501 is nu 1 via 55501
+Afstand naar 55501 is nu 1 via 55501
+Afstand naar 55500 is nu 2 via 55501
+Afstand naar 55500 is nu 2 via 55501
 Afstand naar 55503 is nu 1 via 55503
-Afstand naar 55505 is nu 2 via 55503
 Afstand naar 55505 is nu 2 via 55503
 Afstand naar 55504 is nu 1 via 55504
 Afstand naar 55505 is nu 2 via 55504
@@ -280,9 +284,9 @@ Afstand naar 55500 is nu 1 via 55500
 > R
 55502 0 local
 55503 1 55503
+55504 1 55504
 55501 1 55501
 55500 1 55500
-55504 1 55504
 55505 2 55504
 //Buren:
 //55503
@@ -291,20 +295,19 @@ Afstand naar 55500 is nu 1 via 55500
 //55500
 
 Process 55503:
-Verbonden: 55502
 Verbonden: 55505
 Afstand naar 55505 is nu 1 via 55505
-Afstand naar 55502 is nu 1 via 55502
-Afstand naar 55502 is nu 1 via 55502
-Afstand naar 55501 is nu 2 via 55502
-Afstand naar 55501 is nu 2 via 55502
-Afstand naar 55500 is nu 3 via 55502
-Afstand naar 55500 is nu 3 via 55502
-Afstand naar 55504 is nu 2 via 55505
-Afstand naar 55504 is nu 2 via 55505
 Afstand naar 55505 is nu 1 via 55505
+Verbonden: 55502
+Afstand naar 55502 is nu 1 via 55502
+Afstand naar 55502 is nu 1 via 55502
+Afstand naar 55504 is nu 2 via 55505
 Afstand naar 55504 is nu 2 via 55505
 Afstand naar 55504 is nu 2 via 55502
+Afstand naar 55501 is nu 2 via 55502
+Afstand naar 55501 is nu 2 via 55502
+Afstand naar 55500 is nu 3 via 55502
+Afstand naar 55500 is nu 3 via 55502
 Afstand naar 55504 is nu 2 via 55502
 Afstand naar 55500 is nu 2 via 55502
 Afstand naar 55500 is nu 2 via 55502
@@ -312,9 +315,9 @@ Afstand naar 55500 is nu 2 via 55502
 55503 0 local
 55505 1 55505
 55502 1 55502
+55504 2 55502
 55501 2 55502
 55500 2 55502
-55504 2 55502
 //Buren:
 //55505
 //55502
@@ -322,29 +325,30 @@ Afstand naar 55500 is nu 2 via 55502
 Process 55504:
 Verbonden: 55505
 Afstand naar 55505 is nu 1 via 55505
+Afstand naar 55502 is nu 3 via 55505
 Afstand naar 55505 is nu 1 via 55505
 Afstand naar 55503 is nu 2 via 55505
-Afstand naar 55503 is nu 2 via 55505
 Afstand naar 55502 is nu 3 via 55505
-Afstand naar 55502 is nu 3 via 55505
-Afstand naar 55501 is nu 4 via 55505
-Afstand naar 55501 is nu 4 via 55505
-Afstand naar 55500 is nu 5 via 55505
-Afstand naar 55500 is nu 5 via 55505
 Verbonden: 55502
+Afstand naar 55501 is nu 4 via 55505
+Afstand naar 55501 is nu 4 via 55505
+Afstand naar 55500 is nu 5 via 55505
+Afstand naar 55500 is nu 5 via 55505
 Afstand naar 55502 is nu 1 via 55502
 Afstand naar 55503 is nu 2 via 55502
+Afstand naar 55502 is nu 1 via 55502
+Afstand naar 55501 is nu 2 via 55502
 Afstand naar 55501 is nu 2 via 55502
 Afstand naar 55500 is nu 3 via 55502
-Afstand naar 55502 is nu 1 via 55502
+Afstand naar 55500 is nu 3 via 55502
 Afstand naar 55503 is nu 2 via 55502
 Afstand naar 55500 is nu 2 via 55502
 Afstand naar 55500 is nu 2 via 55502
 > R
 55504 0 local
 55505 1 55505
-55503 2 55502
 55502 1 55502
+55503 2 55502
 55501 2 55502
 55500 2 55502
 //Buren:
@@ -352,36 +356,38 @@ Afstand naar 55500 is nu 2 via 55502
 //55502
 
 Process 55505:
-Verbonden: 55504
 Verbonden: 55503
-Afstand naar 55504 is nu 1 via 55504
-Afstand naar 55504 is nu 1 via 55504
 Afstand naar 55503 is nu 1 via 55503
 Afstand naar 55503 is nu 1 via 55503
 Afstand naar 55502 is nu 2 via 55503
+Verbonden: 55504
 Afstand naar 55502 is nu 2 via 55503
+Afstand naar 55504 is nu 1 via 55504
+Afstand naar 55504 is nu 1 via 55504
 Afstand naar 55501 is nu 3 via 55503
 Afstand naar 55501 is nu 3 via 55503
 Afstand naar 55500 is nu 4 via 55503
 Afstand naar 55500 is nu 4 via 55503
+Afstand naar 55502 is nu 2 via 55504
 Afstand naar 55502 is nu 2 via 55504
 Afstand naar 55501 is nu 3 via 55504
+Afstand naar 55501 is nu 3 via 55504
 Afstand naar 55500 is nu 4 via 55504
-Afstand naar 55502 is nu 2 via 55504
+Afstand naar 55500 is nu 4 via 55504
 Afstand naar 55500 is nu 3 via 55503
 Afstand naar 55500 is nu 3 via 55504
 Afstand naar 55500 is nu 3 via 55503
 Afstand naar 55500 is nu 3 via 55504
 > R
 55505 0 local
-55504 1 55504
 55503 1 55503
 55502 2 55504
+55504 1 55504
 55501 3 55504
 55500 3 55504
 //Buren:
-//55504
 //55503
+//55504
 
 ------------------------------------
 
@@ -400,13 +406,13 @@ Log
 55505 < HOI0
 55504 > B 55503 HOI1
 55504 < Bericht voor 55503 doorgestuurd naar 55502
-55502 < Bericht voor 55503 doorgestuurd naar 55503
 55503 < HOI1
+55502 < Bericht voor 55503 doorgestuurd naar 55503
 55501 > B 55505 HOI2
-55501 < Bericht voor 55505 doorgestuurd naar 55502
-55502 < Bericht voor 55505 doorgestuurd naar 55504
 55505 < HOI2
+55502 < Bericht voor 55505 doorgestuurd naar 55504
 55504 < Bericht voor 55505 doorgestuurd naar 55505
+55501 < Bericht voor 55505 doorgestuurd naar 55502
 55501 > B 55500 HOI3
 55501 < Bericht voor 55500 doorgestuurd naar 55500
 55500 < HOI3
@@ -450,7 +456,7 @@ Bericht voor 55500 doorgestuurd naar 55504
 
 ------------------------------------
 
-1;Standaard;Correct;2,43;Verbindingen aanleggen met C
+1;Standaard;Correct;2,42;Verbindingen aanleggen met C
 Test 1 - Standaard
 
 Verbinding van 0 naar 3 gemaakt.
@@ -464,16 +470,16 @@ Log
 55500 > C 55503
 55503 < Verbonden: 55500
 55500 < Verbonden: 55503
+55500 < Afstand naar 55503 is nu 1 via 55503
+55501 < Afstand naar 55503 is nu 2 via 55500
 55503 < Afstand naar 55500 is nu 1 via 55500
 55505 < Afstand naar 55500 is nu 2 via 55503
 55503 < Afstand naar 55501 is nu 2 via 55500
 55505 < Afstand naar 55501 is nu 3 via 55503
-55500 < Afstand naar 55503 is nu 1 via 55503
-55501 < Afstand naar 55503 is nu 2 via 55500
 55503 < Afstand naar 55500 is nu 1 via 55500
 55505 < Afstand naar 55500 is nu 2 via 55503
-55501 < Afstand naar 55503 is nu 2 via 55500
 55500 < Afstand naar 55503 is nu 1 via 55503
+55501 < Afstand naar 55503 is nu 2 via 55500
 55500 < Afstand naar 55505 is nu 2 via 55503
 55501 < Afstand naar 55505 is nu 3 via 55500
 55505 > B 55500 HOI5
@@ -484,21 +490,21 @@ Log
 55501 < Verbonden: 55505
 55505 < Verbonden: 55501
 55505 < Afstand naar 55501 is nu 1 via 55501
-55501 < Afstand naar 55505 is nu 1 via 55505
-55502 < Afstand naar 55505 is nu 2 via 55501
-55501 < Afstand naar 55504 is nu 2 via 55505
-55501 < Afstand naar 55503 is nu 2 via 55505
-55500 < Afstand naar 55505 is nu 2 via 55501
-55504 < Afstand naar 55501 is nu 2 via 55505
 55503 < Afstand naar 55501 is nu 2 via 55505
-55501 < Afstand naar 55505 is nu 1 via 55505
-55500 < Afstand naar 55505 is nu 2 via 55501
-55502 < Afstand naar 55505 is nu 2 via 55501
-55505 < Afstand naar 55501 is nu 1 via 55501
 55504 < Afstand naar 55501 is nu 2 via 55505
+55501 < Afstand naar 55505 is nu 1 via 55505
+55502 < Afstand naar 55505 is nu 2 via 55501
+55500 < Afstand naar 55505 is nu 2 via 55501
+55501 < Afstand naar 55503 is nu 2 via 55505
+55501 < Afstand naar 55504 is nu 2 via 55505
+55501 < Afstand naar 55505 is nu 1 via 55505
+55502 < Afstand naar 55505 is nu 2 via 55501
+55500 < Afstand naar 55505 is nu 2 via 55501
+55505 < Afstand naar 55501 is nu 1 via 55501
 55503 < Afstand naar 55501 is nu 2 via 55505
 55505 < Afstand naar 55502 is nu 2 via 55501
 55505 < Afstand naar 55500 is nu 2 via 55501
+55504 < Afstand naar 55501 is nu 2 via 55505
 55502 > B 55501 HOI6
 55502 < Bericht voor 55501 doorgestuurd naar 55501
 55501 < HOI6
@@ -519,8 +525,8 @@ Afstand naar 55503 is nu 2 via 55500
 Afstand naar 55505 is nu 3 via 55500
 Verbonden: 55505
 Afstand naar 55505 is nu 1 via 55505
-Afstand naar 55504 is nu 2 via 55505
 Afstand naar 55503 is nu 2 via 55505
+Afstand naar 55504 is nu 2 via 55505
 Afstand naar 55505 is nu 1 via 55505
 HOI6
 
@@ -558,7 +564,7 @@ Afstand naar 55500 is nu 2 via 55501
 
 ------------------------------------
 
-1;Standaard;Correct;0,14;Berichten sturen in gewijzigd netwerk
+1;Standaard;Correct;0,09;Berichten sturen in gewijzigd netwerk
 Test 1 - Standaard
 
 Verbinding van 0 naar 3 gemaakt.
@@ -572,16 +578,16 @@ Log
 55500 > C 55503
 55503 < Verbonden: 55500
 55500 < Verbonden: 55503
+55500 < Afstand naar 55503 is nu 1 via 55503
+55501 < Afstand naar 55503 is nu 2 via 55500
 55503 < Afstand naar 55500 is nu 1 via 55500
 55505 < Afstand naar 55500 is nu 2 via 55503
 55503 < Afstand naar 55501 is nu 2 via 55500
 55505 < Afstand naar 55501 is nu 3 via 55503
-55500 < Afstand naar 55503 is nu 1 via 55503
-55501 < Afstand naar 55503 is nu 2 via 55500
 55503 < Afstand naar 55500 is nu 1 via 55500
 55505 < Afstand naar 55500 is nu 2 via 55503
-55501 < Afstand naar 55503 is nu 2 via 55500
 55500 < Afstand naar 55503 is nu 1 via 55503
+55501 < Afstand naar 55503 is nu 2 via 55500
 55500 < Afstand naar 55505 is nu 2 via 55503
 55501 < Afstand naar 55505 is nu 3 via 55500
 55505 > B 55500 HOI5
@@ -592,21 +598,21 @@ Log
 55501 < Verbonden: 55505
 55505 < Verbonden: 55501
 55505 < Afstand naar 55501 is nu 1 via 55501
-55501 < Afstand naar 55505 is nu 1 via 55505
-55502 < Afstand naar 55505 is nu 2 via 55501
-55501 < Afstand naar 55504 is nu 2 via 55505
-55501 < Afstand naar 55503 is nu 2 via 55505
-55500 < Afstand naar 55505 is nu 2 via 55501
-55504 < Afstand naar 55501 is nu 2 via 55505
 55503 < Afstand naar 55501 is nu 2 via 55505
-55501 < Afstand naar 55505 is nu 1 via 55505
-55500 < Afstand naar 55505 is nu 2 via 55501
-55502 < Afstand naar 55505 is nu 2 via 55501
-55505 < Afstand naar 55501 is nu 1 via 55501
 55504 < Afstand naar 55501 is nu 2 via 55505
+55501 < Afstand naar 55505 is nu 1 via 55505
+55502 < Afstand naar 55505 is nu 2 via 55501
+55500 < Afstand naar 55505 is nu 2 via 55501
+55501 < Afstand naar 55503 is nu 2 via 55505
+55501 < Afstand naar 55504 is nu 2 via 55505
+55501 < Afstand naar 55505 is nu 1 via 55505
+55502 < Afstand naar 55505 is nu 2 via 55501
+55500 < Afstand naar 55505 is nu 2 via 55501
+55505 < Afstand naar 55501 is nu 1 via 55501
 55503 < Afstand naar 55501 is nu 2 via 55505
 55505 < Afstand naar 55502 is nu 2 via 55501
 55505 < Afstand naar 55500 is nu 2 via 55501
+55504 < Afstand naar 55501 is nu 2 via 55505
 55502 > B 55501 HOI6
 55502 < Bericht voor 55501 doorgestuurd naar 55501
 55501 < HOI6
@@ -627,8 +633,8 @@ Afstand naar 55503 is nu 2 via 55500
 Afstand naar 55505 is nu 3 via 55500
 Verbonden: 55505
 Afstand naar 55505 is nu 1 via 55505
-Afstand naar 55504 is nu 2 via 55505
 Afstand naar 55503 is nu 2 via 55505
+Afstand naar 55504 is nu 2 via 55505
 Afstand naar 55505 is nu 1 via 55505
 HOI6
 
@@ -666,79 +672,81 @@ Afstand naar 55500 is nu 2 via 55501
 
 ------------------------------------
 
-1;Standaard;Incorrect;5,42;Verbindingen verbreken
+1;Standaard;Incorrect;5,48;Verbindingen verbreken
 Test 1 - Standaard
 
 Fout bij opnieuw berekenen netwerk - de routing-tabel is incorrect.
 Verbinding van 0 naar 3 verbroken.
-Het programma ziet de verbinding van 55500 naar 55503 niet.
-Het programma ziet de verbinding van 55503 naar 55500 niet.
+De afstand van 55500 naar 55503 is niet correct (programma denkt 0 moet 2 zijn).
+De afstand van 55503 naar 55500 is niet correct (programma denkt 0 moet 2 zijn).
 
 Log
 55500 > D 55503
-55500 < Verbroken: 55503
 55503 < Verbroken: 55500
+55500 < Verbroken: 55503
 55500 > R
 55501 > R
 55502 > R
-55500 < 55500 0 local
-55501 < 55501 0 local
 55503 > R
 55504 > R
 55505 > R
+55500 < 55500 0 local
 55500 < 55501 1 55501
-55501 < 55502 1 55502
-55502 < 55502 0 local
 55500 < 55502 1 55502
-55501 < 55500 1 55500
-55502 < 55503 1 55503
 55500 < 55504 2 55502
-55501 < 55503 2 55505
-55503 < 55503 0 local
-55502 < 55501 1 55501
+55500 < 55503 0 55503
 55500 < 55505 2 55501
+55500 < //Buren:
+55500 < //55501
+55500 < //55502
+55501 < 55501 0 local
+55501 < 55502 1 55502
+55501 < 55500 1 55500
 55501 < 55504 2 55505
+55501 < 55503 2 55505
+55501 < 55505 1 55505
+55501 < //Buren:
+55501 < //55502
+55502 < 55502 0 local
+55501 < //55500
+55501 < //55505
+55502 < 55503 1 55503
+55502 < 55504 1 55504
+55502 < 55501 1 55501
+55503 < 55503 0 local
 55502 < 55500 1 55500
 55503 < 55505 1 55505
-55504 < 55504 0 local
-55501 < 55505 1 55505
-55500 < //Buren:
-55502 < 55504 1 55504
-55503 < 55502 1 55502
-55500 < //55501
-55504 < 55505 1 55505
-55501 < //Buren:
 55502 < 55505 2 55501
-55503 < 55501 2 55505
-55500 < //55502
-55501 < //55502
-55505 < 55505 0 local
-55504 < 55503 2 55502
-55501 < //55500
+55503 < 55502 1 55502
 55502 < //Buren:
-55503 < 55504 2 55502
-55505 < 55504 1 55504
-55501 < //55505
 55502 < //55503
-55504 < 55502 1 55502
+55503 < 55504 2 55502
 55502 < //55501
-55503 < //Buren:
-55505 < 55503 1 55503
-55504 < 55501 2 55505
 55502 < //55504
+55502 < //55500
+55503 < 55501 2 55505
+55504 < 55504 0 local
+55503 < 55500 0 55500
+55504 < 55505 1 55505
+55503 < //Buren:
+55504 < 55502 1 55502
 55503 < //55505
+55503 < //55502
+55504 < 55503 2 55502
+55504 < 55501 2 55505
+55505 < 55505 0 local
+55505 < 55503 1 55503
 55504 < 55500 2 55502
 55505 < 55502 2 55501
-55502 < //55500
-55503 < //55502
 55504 < //Buren:
-55505 < 55501 1 55501
+55505 < 55504 1 55504
 55504 < //55505
 55504 < //55502
+55505 < 55501 1 55501
 55505 < 55500 2 55501
 55505 < //Buren:
-55505 < //55504
 55505 < //55503
+55505 < //55504
 55505 < //55501
 
 Process 55500:
@@ -749,6 +757,7 @@ Verbroken: 55503
 55501 1 55501
 55502 1 55502
 55504 2 55502
+55503 0 55503
 55505 2 55501
 //Buren:
 //55501
@@ -759,8 +768,8 @@ Process 55501:
 55501 0 local
 55502 1 55502
 55500 1 55500
-55503 2 55505
 55504 2 55505
+55503 2 55505
 55505 1 55505
 //Buren:
 //55502
@@ -771,9 +780,9 @@ Process 55502:
 > R
 55502 0 local
 55503 1 55503
+55504 1 55504
 55501 1 55501
 55500 1 55500
-55504 1 55504
 55505 2 55501
 //Buren:
 //55503
@@ -787,8 +796,9 @@ Verbroken: 55500
 55503 0 local
 55505 1 55505
 55502 1 55502
-55501 2 55505
 55504 2 55502
+55501 2 55505
+55500 0 55500
 //Buren:
 //55505
 //55502
@@ -797,8 +807,8 @@ Process 55504:
 > R
 55504 0 local
 55505 1 55505
-55503 2 55502
 55502 1 55502
+55503 2 55502
 55501 2 55505
 55500 2 55502
 //Buren:
@@ -808,19 +818,19 @@ Process 55504:
 Process 55505:
 > R
 55505 0 local
-55504 1 55504
 55503 1 55503
 55502 2 55501
+55504 1 55504
 55501 1 55501
 55500 2 55501
 //Buren:
-//55504
 //55503
+//55504
 //55501
 
 ------------------------------------
 
-2;Random;Incorrect;4,69;Opstarten netwerk
+2;Random;Incorrect;4,95;Opstarten netwerk
 Test 2 - Random
 
 Fout bij opzetten netwerk - de routing-tabel is incorrect.
@@ -907,132 +917,84 @@ start NetwProg.exe 55505 55501 55503 55506
 start NetwProg.exe 55506 55500 55501 55503 55504 55505 55507
 start NetwProg.exe 55507 55500 55506
 start NetwProg.exe 55508 55503
-55501 < Verbonden: 55500
-55500 < Verbonden: 55501
-55500 < Afstand naar 55501 is nu 1 via 55501
 55502 < Verbonden: 55501
+55506 < Verbonden: 55504
+55501 < Verbonden: 55500
+55504 < Verbonden: 55503
+55507 < Verbonden: 55506
 55501 < Verbonden: 55502
 55501 < Afstand naar 55502 is nu 1 via 55502
-55501 < Afstand naar 55500 is nu 1 via 55500
-55501 < Afstand naar 55500 is nu 1 via 55500
-55504 < Verbonden: 55502
 55502 < Verbonden: 55504
 55502 < Afstand naar 55504 is nu 1 via 55504
-55502 < Afstand naar 55501 is nu 1 via 55501
-55502 < Afstand naar 55501 is nu 1 via 55501
-55502 < Afstand naar 55500 is nu 2 via 55501
-55502 < Afstand naar 55500 is nu 2 via 55501
-55506 < Verbonden: 55504
+55506 < Verbonden: 55507
+55506 < Afstand naar 55507 is nu 1 via 55507
 55504 < Verbonden: 55506
 55504 < Afstand naar 55506 is nu 1 via 55506
+55507 < Afstand naar 55506 is nu 1 via 55506
+55507 < Afstand naar 55506 is nu 1 via 55506
+55500 < Verbonden: 55501
+55503 < Verbonden: 55504
+55500 < Afstand naar 55501 is nu 1 via 55501
+55503 < Afstand naar 55504 is nu 1 via 55504
+55502 < Afstand naar 55501 is nu 1 via 55501
+55502 < Afstand naar 55501 is nu 1 via 55501
+55504 < Afstand naar 55503 is nu 1 via 55503
+55504 < Verbonden: 55502
+55504 < Afstand naar 55503 is nu 1 via 55503
+55505 < Verbonden: 55506
+55506 < Verbonden: 55505
+55505 < Afstand naar 55506 is nu 1 via 55506
 55504 < Afstand naar 55502 is nu 1 via 55502
 55504 < Afstand naar 55502 is nu 1 via 55502
 55502 < Afstand naar 55504 is nu 1 via 55504
 55504 < Afstand naar 55501 is nu 2 via 55502
 55502 < Afstand naar 55506 is nu 2 via 55504
+55502 < Afstand naar 55503 is nu 2 via 55504
 55504 < Afstand naar 55501 is nu 2 via 55502
-55504 < Afstand naar 55500 is nu 3 via 55502
-55504 < Afstand naar 55500 is nu 3 via 55502
-55505 < Verbonden: 55506
-55504 < Verbonden: 55503
-55503 < Verbonden: 55504
-55504 < Afstand naar 55503 is nu 1 via 55503
-55502 < Afstand naar 55503 is nu 2 via 55504
-55503 < Afstand naar 55504 is nu 1 via 55504
-55504 < Afstand naar 55503 is nu 1 via 55503
-55502 < Afstand naar 55503 is nu 2 via 55504
-55505 < Afstand naar 55506 is nu 1 via 55506
-55507 < Verbonden: 55506
-55506 < Verbonden: 55507
 55506 < Afstand naar 55507 is nu 1 via 55507
+55504 < Afstand naar 55507 is nu 2 via 55506
+55502 < Afstand naar 55507 is nu 3 via 55504
+55505 < Afstand naar 55507 is nu 2 via 55506
+55506 < Afstand naar 55505 is nu 1 via 55505
+55507 < Afstand naar 55505 is nu 2 via 55506
+55504 < Afstand naar 55505 is nu 2 via 55506
+55502 < Afstand naar 55505 is nu 3 via 55504
+55506 < Afstand naar 55505 is nu 1 via 55505
+55507 < Afstand naar 55505 is nu 2 via 55506
+55504 < Afstand naar 55505 is nu 2 via 55506
+55502 < Afstand naar 55505 is nu 3 via 55504
+55505 < Afstand naar 55506 is nu 1 via 55506
+55505 < Afstand naar 55507 is nu 2 via 55506
 55506 < Afstand naar 55504 is nu 1 via 55504
-55506 < Verbonden: 55505
+55507 < Afstand naar 55504 is nu 2 via 55506
+55505 < Afstand naar 55504 is nu 2 via 55506
 55506 < Afstand naar 55504 is nu 1 via 55504
+55507 < Afstand naar 55504 is nu 2 via 55506
+55505 < Afstand naar 55504 is nu 2 via 55506
 55504 < Afstand naar 55506 is nu 1 via 55506
 55502 < Afstand naar 55506 is nu 2 via 55504
 55504 < Afstand naar 55507 is nu 2 via 55506
 55502 < Afstand naar 55507 is nu 3 via 55504
-55506 < Afstand naar 55502 is nu 2 via 55504
-55506 < Afstand naar 55502 is nu 2 via 55504
-55506 < Afstand naar 55501 is nu 3 via 55504
-55506 < Afstand naar 55501 is nu 3 via 55504
-55506 < Afstand naar 55500 is nu 4 via 55504
-55506 < Afstand naar 55500 is nu 4 via 55504
-55506 < Afstand naar 55503 is nu 2 via 55504
-55506 < Afstand naar 55503 is nu 2 via 55504
-55507 < Afstand naar 55506 is nu 1 via 55506
-55507 < Afstand naar 55506 is nu 1 via 55506
-55507 < Afstand naar 55504 is nu 2 via 55506
-55507 < Afstand naar 55504 is nu 2 via 55506
-55507 < Afstand naar 55502 is nu 3 via 55506
-55507 < Afstand naar 55502 is nu 3 via 55506
-55507 < Afstand naar 55501 is nu 4 via 55506
-55507 < Afstand naar 55501 is nu 4 via 55506
-55507 < Afstand naar 55500 is nu 5 via 55506
-55507 < Afstand naar 55500 is nu 5 via 55506
-55507 < Afstand naar 55503 is nu 3 via 55506
-55507 < Afstand naar 55503 is nu 3 via 55506
-55506 < Afstand naar 55505 is nu 1 via 55505
-55507 < Afstand naar 55505 is nu 2 via 55506
 55504 < Afstand naar 55505 is nu 2 via 55506
 55502 < Afstand naar 55505 is nu 3 via 55504
-55506 < Afstand naar 55505 is nu 1 via 55505
-55507 < Afstand naar 55505 is nu 2 via 55506
-55504 < Afstand naar 55505 is nu 2 via 55506
-55502 < Afstand naar 55505 is nu 3 via 55504
-55505 < Afstand naar 55506 is nu 1 via 55506
-55505 < Afstand naar 55507 is nu 2 via 55506
-55505 < Afstand naar 55504 is nu 2 via 55506
-55505 < Afstand naar 55502 is nu 3 via 55506
-55505 < Afstand naar 55501 is nu 4 via 55506
-55505 < Afstand naar 55500 is nu 5 via 55506
+55506 < Afstand naar 55503 is nu 2 via 55504
+55507 < Afstand naar 55503 is nu 3 via 55506
 55505 < Afstand naar 55503 is nu 3 via 55506
-55506 < Afstand naar 55507 is nu 1 via 55507
-55504 < Afstand naar 55507 is nu 2 via 55506
-55502 < Afstand naar 55507 is nu 3 via 55504
-55505 < Afstand naar 55507 is nu 2 via 55506
-55502 < Verbonden: 55500
-55500 < Verbonden: 55502
-55502 < Afstand naar 55500 is nu 1 via 55500
-55504 < Afstand naar 55500 is nu 2 via 55502
-55506 < Afstand naar 55500 is nu 3 via 55504
-55507 < Afstand naar 55500 is nu 4 via 55506
-55505 < Afstand naar 55500 is nu 4 via 55506
-55500 < Afstand naar 55502 is nu 1 via 55502
-55502 < Afstand naar 55500 is nu 1 via 55500
-55504 < Afstand naar 55500 is nu 2 via 55502
-55506 < Afstand naar 55500 is nu 3 via 55504
-55507 < Afstand naar 55500 is nu 4 via 55506
-55505 < Afstand naar 55500 is nu 4 via 55506
-55500 < Afstand naar 55501 is nu 1 via 55501
-55504 < Verbonden: 55501
-55501 < Verbonden: 55504
-55504 < Afstand naar 55501 is nu 1 via 55501
-55506 < Afstand naar 55501 is nu 2 via 55504
-55504 < Afstand naar 55500 is nu 2 via 55501
-55507 < Afstand naar 55501 is nu 3 via 55506
-55505 < Afstand naar 55501 is nu 3 via 55506
-55506 < Afstand naar 55500 is nu 3 via 55504
-55507 < Afstand naar 55500 is nu 4 via 55506
-55505 < Afstand naar 55500 is nu 4 via 55506
-55501 < Afstand naar 55504 is nu 1 via 55504
-55504 < Afstand naar 55501 is nu 1 via 55501
-55506 < Afstand naar 55501 is nu 2 via 55504
-55507 < Afstand naar 55501 is nu 3 via 55506
-55505 < Afstand naar 55501 is nu 3 via 55506
-55501 < Afstand naar 55502 is nu 1 via 55502
-55505 < Verbonden: 55503
-55503 < Verbonden: 55505
-55503 < Afstand naar 55505 is nu 1 via 55505
-55504 < Afstand naar 55505 is nu 2 via 55503
-55502 < Afstand naar 55505 is nu 3 via 55504
-55505 < Afstand naar 55503 is nu 1 via 55503
-55506 < Afstand naar 55503 is nu 2 via 55505
+55505 < Afstand naar 55503 is nu 3 via 55506
+55505 < Afstand naar 55502 is nu 3 via 55506
+55505 < Afstand naar 55502 is nu 3 via 55506
 55507 < Afstand naar 55503 is nu 3 via 55506
-55505 < Afstand naar 55504 is nu 2 via 55503
-55505 < Afstand naar 55503 is nu 1 via 55503
-55506 < Afstand naar 55503 is nu 2 via 55505
-55507 < Afstand naar 55503 is nu 3 via 55506
+55505 < Afstand naar 55501 is nu 4 via 55506
+55505 < Afstand naar 55501 is nu 4 via 55506
+55507 < Afstand naar 55502 is nu 3 via 55506
+55506 < Afstand naar 55503 is nu 2 via 55504
+55507 < Afstand naar 55502 is nu 3 via 55506
+55507 < Afstand naar 55501 is nu 4 via 55506
+55506 < Afstand naar 55502 is nu 2 via 55504
+55507 < Afstand naar 55501 is nu 4 via 55506
+55506 < Afstand naar 55502 is nu 2 via 55504
+55506 < Afstand naar 55501 is nu 3 via 55504
+55506 < Afstand naar 55501 is nu 3 via 55504
 55500 > R
 55501 > R
 55502 > R
@@ -1046,19 +1008,11 @@ start NetwProg.exe 55508 55503
 Process 55500:
 Verbonden: 55501
 Afstand naar 55501 is nu 1 via 55501
-Verbonden: 55502
-Afstand naar 55502 is nu 1 via 55502
-Afstand naar 55501 is nu 1 via 55501
 > R
 
 Process 55501:
 Verbonden: 55500
 Verbonden: 55502
-Afstand naar 55502 is nu 1 via 55502
-Afstand naar 55500 is nu 1 via 55500
-Afstand naar 55500 is nu 1 via 55500
-Verbonden: 55504
-Afstand naar 55504 is nu 1 via 55504
 Afstand naar 55502 is nu 1 via 55502
 > R
 
@@ -1068,129 +1022,89 @@ Verbonden: 55504
 Afstand naar 55504 is nu 1 via 55504
 Afstand naar 55501 is nu 1 via 55501
 Afstand naar 55501 is nu 1 via 55501
-Afstand naar 55500 is nu 2 via 55501
-Afstand naar 55500 is nu 2 via 55501
 Afstand naar 55504 is nu 1 via 55504
 Afstand naar 55506 is nu 2 via 55504
 Afstand naar 55503 is nu 2 via 55504
-Afstand naar 55503 is nu 2 via 55504
+Afstand naar 55507 is nu 3 via 55504
+Afstand naar 55505 is nu 3 via 55504
+Afstand naar 55505 is nu 3 via 55504
 Afstand naar 55506 is nu 2 via 55504
 Afstand naar 55507 is nu 3 via 55504
-Afstand naar 55505 is nu 3 via 55504
-Afstand naar 55505 is nu 3 via 55504
-Afstand naar 55507 is nu 3 via 55504
-Verbonden: 55500
-Afstand naar 55500 is nu 1 via 55500
-Afstand naar 55500 is nu 1 via 55500
 Afstand naar 55505 is nu 3 via 55504
 > R
 
 Process 55503:
 Verbonden: 55504
 Afstand naar 55504 is nu 1 via 55504
-Verbonden: 55505
-Afstand naar 55505 is nu 1 via 55505
 > R
 
 Process 55504:
-Verbonden: 55502
+Verbonden: 55503
 Verbonden: 55506
 Afstand naar 55506 is nu 1 via 55506
+Afstand naar 55503 is nu 1 via 55503
+Verbonden: 55502
+Afstand naar 55503 is nu 1 via 55503
 Afstand naar 55502 is nu 1 via 55502
 Afstand naar 55502 is nu 1 via 55502
 Afstand naar 55501 is nu 2 via 55502
 Afstand naar 55501 is nu 2 via 55502
-Afstand naar 55500 is nu 3 via 55502
-Afstand naar 55500 is nu 3 via 55502
-Verbonden: 55503
-Afstand naar 55503 is nu 1 via 55503
-Afstand naar 55503 is nu 1 via 55503
+Afstand naar 55507 is nu 2 via 55506
+Afstand naar 55505 is nu 2 via 55506
+Afstand naar 55505 is nu 2 via 55506
 Afstand naar 55506 is nu 1 via 55506
 Afstand naar 55507 is nu 2 via 55506
 Afstand naar 55505 is nu 2 via 55506
-Afstand naar 55505 is nu 2 via 55506
-Afstand naar 55507 is nu 2 via 55506
-Afstand naar 55500 is nu 2 via 55502
-Afstand naar 55500 is nu 2 via 55502
-Verbonden: 55501
-Afstand naar 55501 is nu 1 via 55501
-Afstand naar 55500 is nu 2 via 55501
-Afstand naar 55501 is nu 1 via 55501
-Afstand naar 55505 is nu 2 via 55503
 > R
 
 Process 55505:
 Verbonden: 55506
 Afstand naar 55506 is nu 1 via 55506
+Afstand naar 55507 is nu 2 via 55506
 Afstand naar 55506 is nu 1 via 55506
 Afstand naar 55507 is nu 2 via 55506
 Afstand naar 55504 is nu 2 via 55506
+Afstand naar 55504 is nu 2 via 55506
+Afstand naar 55503 is nu 3 via 55506
+Afstand naar 55503 is nu 3 via 55506
+Afstand naar 55502 is nu 3 via 55506
 Afstand naar 55502 is nu 3 via 55506
 Afstand naar 55501 is nu 4 via 55506
-Afstand naar 55500 is nu 5 via 55506
-Afstand naar 55503 is nu 3 via 55506
-Afstand naar 55507 is nu 2 via 55506
-Afstand naar 55500 is nu 4 via 55506
-Afstand naar 55500 is nu 4 via 55506
-Afstand naar 55501 is nu 3 via 55506
-Afstand naar 55500 is nu 4 via 55506
-Afstand naar 55501 is nu 3 via 55506
-Verbonden: 55503
-Afstand naar 55503 is nu 1 via 55503
-Afstand naar 55504 is nu 2 via 55503
-Afstand naar 55503 is nu 1 via 55503
+Afstand naar 55501 is nu 4 via 55506
 > R
 
 Process 55506:
 Verbonden: 55504
 Verbonden: 55507
 Afstand naar 55507 is nu 1 via 55507
-Afstand naar 55504 is nu 1 via 55504
 Verbonden: 55505
-Afstand naar 55504 is nu 1 via 55504
-Afstand naar 55502 is nu 2 via 55504
-Afstand naar 55502 is nu 2 via 55504
-Afstand naar 55501 is nu 3 via 55504
-Afstand naar 55501 is nu 3 via 55504
-Afstand naar 55500 is nu 4 via 55504
-Afstand naar 55500 is nu 4 via 55504
-Afstand naar 55503 is nu 2 via 55504
-Afstand naar 55503 is nu 2 via 55504
-Afstand naar 55505 is nu 1 via 55505
-Afstand naar 55505 is nu 1 via 55505
 Afstand naar 55507 is nu 1 via 55507
-Afstand naar 55500 is nu 3 via 55504
-Afstand naar 55500 is nu 3 via 55504
-Afstand naar 55501 is nu 2 via 55504
-Afstand naar 55500 is nu 3 via 55504
-Afstand naar 55501 is nu 2 via 55504
-Afstand naar 55503 is nu 2 via 55505
-Afstand naar 55503 is nu 2 via 55505
+Afstand naar 55505 is nu 1 via 55505
+Afstand naar 55505 is nu 1 via 55505
+Afstand naar 55504 is nu 1 via 55504
+Afstand naar 55504 is nu 1 via 55504
+Afstand naar 55503 is nu 2 via 55504
+Afstand naar 55503 is nu 2 via 55504
+Afstand naar 55502 is nu 2 via 55504
+Afstand naar 55502 is nu 2 via 55504
+Afstand naar 55501 is nu 3 via 55504
+Afstand naar 55501 is nu 3 via 55504
 > R
 
 Process 55507:
 Verbonden: 55506
 Afstand naar 55506 is nu 1 via 55506
 Afstand naar 55506 is nu 1 via 55506
+Afstand naar 55505 is nu 2 via 55506
+Afstand naar 55505 is nu 2 via 55506
 Afstand naar 55504 is nu 2 via 55506
 Afstand naar 55504 is nu 2 via 55506
+Afstand naar 55503 is nu 3 via 55506
+Afstand naar 55503 is nu 3 via 55506
 Afstand naar 55502 is nu 3 via 55506
 Afstand naar 55502 is nu 3 via 55506
 Afstand naar 55501 is nu 4 via 55506
 Afstand naar 55501 is nu 4 via 55506
-Afstand naar 55500 is nu 5 via 55506
-Afstand naar 55500 is nu 5 via 55506
-Afstand naar 55503 is nu 3 via 55506
-Afstand naar 55503 is nu 3 via 55506
-Afstand naar 55505 is nu 2 via 55506
-Afstand naar 55505 is nu 2 via 55506
-Afstand naar 55500 is nu 4 via 55506
-Afstand naar 55500 is nu 4 via 55506
-Afstand naar 55501 is nu 3 via 55506
-Afstand naar 55500 is nu 4 via 55506
-Afstand naar 55501 is nu 3 via 55506
-Afstand naar 55503 is nu 3 via 55506
-Afstand naar 55503 is nu 3 via 55506
 > R
 
 Process 55508:
