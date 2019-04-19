@@ -20,12 +20,15 @@ namespace NetwProg
 
         static public readonly object lockobj = new object(); //lock
 
+        static public int size;
+
         static void Main(string[] args)
         {
             MijnPoort = int.Parse(args[0]);
             Console.Title = "NetChange " + MijnPoort;
             new Server(MijnPoort);
 
+            
 
             Paden.Add(MijnPoort, new Path() { length = 0, closest = "local" });
 
@@ -40,6 +43,9 @@ namespace NetwProg
                     }
                 }
             }
+
+            
+            
 
             new Thread(() => ReadLoop()).Start();
 
@@ -112,15 +118,17 @@ namespace NetwProg
                     Buren.Remove(poort);
                 }
 
-                //DeletePaths(poort.ToString());
-
                 foreach (KeyValuePair<int, Path> pad in Paden)
                 {
                     if (pad.Value.closest == poort.ToString())
                     {
+                        //EditPath(pad.Key, null, 25);
                         Paden[pad.Key].length = 25;
+                        Paden[pad.Key].closest = null;
+
                         foreach (KeyValuePair<int, Connection> buur in Buren)
                         {
+                            buur.Value.Write.Write("Forward " + pad.Key + " 25 null " + MijnPoort);
                             buur.Value.Write.WriteLine("ForwardDelete " + pad.Key + " " + MijnPoort);
                         }
 
@@ -142,14 +150,15 @@ namespace NetwProg
 
         public static void VindNieuwePaden()
         {
-            var toDelete = new List<int>();
+            //var toDelete = new List<int>();
 
             foreach (KeyValuePair<int, Path> pad in Paden)
             {
-                if (pad.Value.length > 20)
+                //if (pad.Value.length > 20)
+                if (pad.Value.closest == null)
                 {
                     int _length = 25;
-                    string _closest = "nothing";
+                    string _closest = null;
                     foreach (KeyValuePair<int, Path> table in RoutingTables[pad.Key])
                     {
                         if (Buren.ContainsKey(table.Key))
@@ -161,27 +170,30 @@ namespace NetwProg
                             }
                         }
                     }
-                    if (_length > 20)
+
+                    EditPath(pad.Key, _closest, _length);
+
+                    if (_closest == null)
                     {
-                        toDelete.Add(pad.Key);
                         foreach(KeyValuePair<int, Connection> buur in Buren)
                         {
                             buur.Value.Write.WriteLine("DeletePath " + pad.Key);
                         }
                     }
-                    else
-                    {
-                        Paden[pad.Key].length = _length;
-                        Paden[pad.Key].closest = _closest;
-                    }
+                    //else
+                    //{
+                        //Paden[pad.Key].length = _length;
+                        //Paden[pad.Key].closest = _closest;
+                    //}
                 }
             }
 
-            foreach (int pad in toDelete)
+            /*foreach (int pad in toDelete)
             {
-                Paden.Remove(pad);
-
-            }
+                //Paden.Remove(pad);
+                Paden[pad].length = 25;
+                Paden[pad].closest = null;
+            }*/
         }
 
 
@@ -193,7 +205,9 @@ namespace NetwProg
                 {
                     if (pad.Key == dest && pad.Value.closest == _closest)
                     {
-                        Paden[pad.Key].length = 25;
+                        //EditPath(dest, null, 25);
+                        Paden[dest].closest = null;
+                        Paden[dest].length = 25;
 
                         foreach (KeyValuePair<int, Connection> buur in Buren)
                         {
@@ -210,7 +224,7 @@ namespace NetwProg
             {
                 if (!Buren.ContainsKey(poort))
                 {
-                    if (!Paden.ContainsKey(poort))
+                    if (!Paden.ContainsKey(poort) || Paden[poort].closest == null)
                     {
                         Console.WriteLine("Poort " + poort + " is niet bekend");
                         return;
@@ -286,7 +300,7 @@ namespace NetwProg
             lock (lockobj)
             {
 
-                if (Paden.ContainsKey(dest) && _length > Paden[dest].length)
+                if ((Paden.ContainsKey(dest) && _length > Paden[dest].length))
                 { return; }
                 else
                 {
@@ -295,15 +309,16 @@ namespace NetwProg
                         Path pad = new Path() { length = _length, closest = _closest };
                         Paden.Add(dest, pad);
 
-                        //Console.WriteLine("Afstand naar " + dest + " is nu " + _length + " via " + _closest);
+                        
                     }
                     else
                     {
                         Paden[dest].length = _length;
                         Paden[dest].closest = _closest;
 
-                        //Console.WriteLine("Afstand naar " + dest + " is nu " + _length + " via " + _closest);
+                        
                     }
+                    //Console.WriteLine("Afstand naar " + dest + " is nu " + _length + " via " + _closest);         <- dit maakt de output erg groot
                 }
 
                 {
@@ -316,7 +331,8 @@ namespace NetwProg
 
                 if (_length > 20 && Paden.ContainsKey(dest))
                 {
-                    Paden.Remove(dest);
+                    Paden[dest].length = 25;
+                    Paden[dest].closest = null;
                     VindNieuwePaden();
                 }
 

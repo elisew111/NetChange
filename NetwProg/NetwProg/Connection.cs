@@ -72,13 +72,14 @@ namespace NetwProg
                         int dest = int.Parse(delen[1]);
                         int _length = int.Parse(delen[2]);
                         string _closest = delen[3];
-                        int poort = int.Parse(delen[4]);
+                        string poort = delen[4];
 
-                        
+                    int intpoort = int.Parse(poort);
+
+                        if(_closest == "null")
+                        { _closest = null; }
 
                         lock (Program.lockobj)
-                        {
-                        if (_length <= 20)
                         {
                             if (!Program.RoutingTables.ContainsKey(dest) && _length <= 20)
                             {
@@ -87,15 +88,8 @@ namespace NetwProg
                             }
 
                             Path pad = new Path() { closest = _closest, length = _length };
-                            Program.RoutingTables[dest][poort] = pad;
-                        }
-                        else
-                        {
-                            if(Program.RoutingTables.ContainsKey(dest))
-                            {
-                                Program.RoutingTables[dest].Remove(poort);
-                            }
-                        }
+                            Program.RoutingTables[dest][intpoort] = pad;
+                        
                         }
 
                         Program.EditPath(dest, poort.ToString(), (_length + 1));
@@ -129,7 +123,8 @@ namespace NetwProg
                     }
                     if(type == "DeletePath")
                     {
-                    Program.Paden.Remove(int.Parse(input.Split(' ')[1]));
+                    int poort = int.Parse(input.Split(' ')[1]);
+                    Program.EditPath(poort, null, 25);
                     }
                 }
             
