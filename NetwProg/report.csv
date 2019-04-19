@@ -1,38 +1,1370 @@
 Onderdeel;Corrects;Attempts;Punten;Max
-std-Opstarten;0;0;0;4
-std-Connect;0;0;0;1
-std-Disconnect;0;0;0;1
-std-Berichten;0;0;0;1
-std-BerichtNaVerandering;0;0;0;0,5
-std-NetwerkPartitie;0;0;0;1
-Opstarten;1;3;2;4
+std-Opstarten;1;3;3;4
+std-Connect;1;1;1;1
+std-Disconnect;1;1;1;1
+std-Berichten;1;1;1;1
+std-BerichtNaVerandering;1;1;0,5;0,5
+std-NetwerkPartitie;0;1;0;1
+Opstarten;0;1;0;4
 Connect;0;0;0;1
-Disconnect;0;1;0;1
-Berichten;1;1;1;1
+Disconnect;0;0;0;1
+Berichten;0;0;0;1
 BerichtNaVerandering;0;0;0;0,5
 NetwerkPartitie;0;0;0;1
-Fout in de locking;-;-;-2;-
 BovenLimiet;0;1;0;1
-Totaal;-;-;1;(van 18)
+Totaal;-;-;6,5;(van 18)
 
 Let op: deze berekening is niet het definitieve cijfer. Dit is alleen maar een automatisch gegenereerde score voor het testbare gedeelte, en het staat nog niet vast dat we dit bij de beoordeling gebruiken.
 
 ------------------------------------
 
 Testcase;Status;Tijd;Omschrijving
-Random;Correct;19,25;Opstarten netwerk
-Random;Correct;10,03;Berichten sturen
-Random;Error;6,17;Verbindingen verbreken
-2xStandaard;Error;1,48;Opstarten netwerk
-2xStandaard;Error;2,05;Opstarten netwerk
+Standaard;Correct;15,24;Opstarten netwerk
+Standaard;Correct;0,51;Berichten sturen
+Standaard;Correct;7,43;Verbindingen aanleggen met C
+Standaard;Correct;0,63;Berichten sturen in gewijzigd netwerk
+Standaard;Correct;10,46;Verbindingen verbreken
+Standaard;Correct;0,06;Berichten sturen in gewijzigd netwerk
+Standaard;Error;2,82;Netwerk onsamenhangend maken
+Random;Incorrect;2,81;Opstarten netwerk
 
 ------------------------------------
 
-2;Random;Correct;19,25;Opstarten netwerk
-Test 2 - Random
+1;Standaard;Correct;15,24;Opstarten netwerk
+Test 1 - Standaard
 
 WAARSCHUWING: de afstandupdates ('Afstand naar ... is nu ... via ...') worden mogelijk niet goed weergegeven!
 Correct: opstarten geslaagd, R-tabel in orde.
+
+Log
+start NetwProg.exe 55500 55501 55502
+start NetwProg.exe 55501 55500 55502
+start NetwProg.exe 55502 55500 55501 55503 55504
+start NetwProg.exe 55503 55502 55505
+start NetwProg.exe 55504 55502 55505
+start NetwProg.exe 55505 55503 55504
+55502 < Verbonden: 55501
+55503 < Verbonden: 55502
+55501 < Verbonden: 55500
+55502 < Verbonden: 55503
+55501 < Verbonden: 55502
+55500 < Verbonden: 55501
+55505 < Verbonden: 55504
+55503 < Verbonden: 55505
+55505 < Verbonden: 55503
+55504 < Verbonden: 55505
+55504 < Verbonden: 55502
+55502 < Verbonden: 55504
+55502 < Verbonden: 55500
+55500 < Verbonden: 55502
+55500 > R
+55501 > R
+55502 > R
+55503 > R
+55504 > R
+55505 > R
+55500 < 55500 0 local
+55500 < 55501 1 55501
+55501 < 55501 0 local
+55502 < 55502 0 local
+55500 < 55502 1 55502
+55503 < 55503 0 local
+55502 < 55503 1 55503
+55501 < 55502 1 55502
+55500 < 55504 2 55502
+55504 < 55504 0 local
+55505 < 55505 0 local
+55502 < 55504 1 55504
+55503 < 55505 1 55505
+55501 < 55500 1 55500
+55504 < 55505 1 55505
+55500 < 55503 2 55502
+55502 < 55505 2 55504
+55503 < 55502 1 55502
+55501 < 55504 2 55502
+55505 < 55503 1 55503
+55504 < 55503 2 55502
+55500 < 55505 3 55502
+55502 < 55501 1 55501
+55503 < 55504 2 55502
+55501 < 55503 2 55502
+55505 < 55504 1 55504
+55504 < 55502 1 55502
+55500 < //Buren:
+55503 < 55501 2 55502
+55502 < 55500 1 55500
+55501 < 55505 3 55502
+55505 < 55502 2 55504
+55500 < //55501
+55504 < 55501 2 55502
+55503 < 55500 2 55502
+55502 < //Buren:
+55500 < //55502
+55501 < //Buren:
+55505 < 55501 3 55504
+55502 < //55503
+55504 < 55500 2 55502
+55501 < //55502
+55503 < //Buren:
+55502 < //55501
+55501 < //55500
+55503 < //55505
+55505 < 55500 3 55503
+55504 < //Buren:
+55502 < //55504
+55503 < //55502
+55504 < //55505
+55505 < //Buren:
+55502 < //55500
+55505 < //55504
+55505 < //55503
+55504 < //55502
+
+Process 55500:
+Verbonden: 55501
+Verbonden: 55502
+> R
+55500 0 local
+55501 1 55501
+55502 1 55502
+55504 2 55502
+55503 2 55502
+55505 3 55502
+//Buren:
+//55501
+//55502
+
+Process 55501:
+Verbonden: 55500
+Verbonden: 55502
+> R
+55501 0 local
+55502 1 55502
+55500 1 55500
+55504 2 55502
+55503 2 55502
+55505 3 55502
+//Buren:
+//55502
+//55500
+
+Process 55502:
+Verbonden: 55501
+Verbonden: 55503
+Verbonden: 55504
+Verbonden: 55500
+> R
+55502 0 local
+55503 1 55503
+55504 1 55504
+55505 2 55504
+55501 1 55501
+55500 1 55500
+//Buren:
+//55503
+//55501
+//55504
+//55500
+
+Process 55503:
+Verbonden: 55502
+Verbonden: 55505
+> R
+55503 0 local
+55505 1 55505
+55502 1 55502
+55504 2 55502
+55501 2 55502
+55500 2 55502
+//Buren:
+//55505
+//55502
+
+Process 55504:
+Verbonden: 55505
+Verbonden: 55502
+> R
+55504 0 local
+55505 1 55505
+55503 2 55502
+55502 1 55502
+55501 2 55502
+55500 2 55502
+//Buren:
+//55505
+//55502
+
+Process 55505:
+Verbonden: 55504
+Verbonden: 55503
+> R
+55505 0 local
+55503 1 55503
+55504 1 55504
+55502 2 55504
+55501 3 55504
+55500 3 55503
+//Buren:
+//55504
+//55503
+
+------------------------------------
+
+1;Standaard;Correct;0,51;Berichten sturen
+Test 1 - Standaard
+
+Correct: Berichtcheck - van 55503 naar 55505
+Correct: Berichtcheck - van 55504 naar 55503
+Correct: Berichtcheck - van 55501 naar 55505
+Correct: Berichtcheck - van 55501 naar 55500
+Correct: Berichtcheck - van 55505 naar 55500
+
+Log
+55503 > B 55505 HOI0
+55505 < HOI0
+55503 < Bericht voor 55505 doorgestuurd naar 55505
+55504 > B 55503 HOI1
+55504 < Bericht voor 55503 doorgestuurd naar 55502
+55502 < Bericht voor 55503 doorgestuurd naar 55503
+55503 < HOI1
+55501 > B 55505 HOI2
+55502 < Bericht voor 55505 doorgestuurd naar 55504
+55501 < Bericht voor 55505 doorgestuurd naar 55502
+55504 < Bericht voor 55505 doorgestuurd naar 55505
+55505 < HOI2
+55501 > B 55500 HOI3
+55501 < Bericht voor 55500 doorgestuurd naar 55500
+55500 < HOI3
+55505 > B 55500 HOI4
+55505 < Bericht voor 55500 doorgestuurd naar 55503
+55503 < Bericht voor 55500 doorgestuurd naar 55502
+55502 < Bericht voor 55500 doorgestuurd naar 55500
+55500 < HOI4
+
+Process 55500:
+HOI3
+HOI4
+
+Process 55501:
+> B 55505 HOI2
+Bericht voor 55505 doorgestuurd naar 55502
+> B 55500 HOI3
+Bericht voor 55500 doorgestuurd naar 55500
+
+Process 55502:
+Bericht voor 55503 doorgestuurd naar 55503
+Bericht voor 55505 doorgestuurd naar 55504
+Bericht voor 55500 doorgestuurd naar 55500
+
+Process 55503:
+> B 55505 HOI0
+Bericht voor 55505 doorgestuurd naar 55505
+HOI1
+Bericht voor 55500 doorgestuurd naar 55502
+
+Process 55504:
+> B 55503 HOI1
+Bericht voor 55503 doorgestuurd naar 55502
+Bericht voor 55505 doorgestuurd naar 55505
+
+Process 55505:
+HOI0
+HOI2
+> B 55500 HOI4
+Bericht voor 55500 doorgestuurd naar 55503
+
+------------------------------------
+
+1;Standaard;Correct;7,43;Verbindingen aanleggen met C
+Test 1 - Standaard
+
+Verbinding van 0 naar 3 gemaakt.
+WAARSCHUWING: de afstandupdates ('Afstand naar ... is nu ... via ...') worden mogelijk niet goed weergegeven!
+Correct: na verandering klopt het netwerk weer.
+Correct: Berichtcheck - van 55505 naar 55500
+Verbinding van 5 naar 1 gemaakt.
+Correct: na verandering klopt netwerk weer.
+Correct: Berichtcheck - van 55502 naar 55501
+
+Log
+55500 > C 55503
+55503 < Verbonden: 55500
+55500 < Verbonden: 55503
+55500 > R
+55501 > R
+55502 > R
+55503 > R
+55500 < 55500 0 local
+55504 > R
+55505 > R
+55501 < 55501 0 local
+55501 < 55502 1 55502
+55501 < 55500 1 55500
+55502 < 55502 0 local
+55500 < 55501 1 55501
+55501 < 55504 2 55502
+55502 < 55503 1 55503
+55500 < 55502 1 55502
+55501 < 55503 2 55500
+55503 < 55503 0 local
+55500 < 55504 2 55502
+55502 < 55504 1 55504
+55503 < 55505 1 55505
+55501 < 55505 3 55500
+55500 < 55503 1 55503
+55502 < 55505 2 55504
+55504 < 55504 0 local
+55503 < 55502 1 55502
+55501 < //Buren:
+55500 < 55505 2 55503
+55501 < //55502
+55504 < 55505 1 55505
+55503 < 55504 2 55502
+55505 < 55505 0 local
+55501 < //55500
+55500 < //Buren:
+55504 < 55503 2 55502
+55503 < 55501 2 55500
+55505 < 55503 1 55503
+55504 < 55502 1 55502
+55505 < 55504 1 55504
+55503 < 55500 1 55500
+55505 < 55502 2 55504
+55503 < //Buren:
+55504 < 55501 2 55502
+55505 < 55501 3 55503
+55503 < //55505
+55502 < 55501 1 55501
+55504 < 55500 2 55502
+55503 < //55502
+55505 < 55500 2 55503
+55503 < //55500
+55502 < 55500 1 55500
+55504 < //Buren:
+55500 < //55501
+55505 < //Buren:
+55504 < //55505
+55500 < //55502
+55502 < //Buren:
+55505 < //55504
+55504 < //55502
+55500 < //55503
+55505 < //55503
+55502 < //55503
+55502 < //55501
+55502 < //55504
+55502 < //55500
+55505 > B 55500 HOI5
+55505 < Bericht voor 55500 doorgestuurd naar 55503
+55500 < HOI5
+55503 < Bericht voor 55500 doorgestuurd naar 55500
+55505 > C 55501
+55501 < Verbonden: 55505
+55505 < Verbonden: 55501
+55502 > B 55501 HOI6
+55501 < HOI6
+55502 < Bericht voor 55501 doorgestuurd naar 55501
+
+Process 55500:
+> C 55503
+Verbonden: 55503
+> R
+55500 0 local
+55501 1 55501
+55502 1 55502
+55504 2 55502
+55503 1 55503
+55505 2 55503
+//Buren:
+//55501
+//55502
+//55503
+HOI5
+
+Process 55501:
+> R
+55501 0 local
+55502 1 55502
+55500 1 55500
+55504 2 55502
+55503 2 55500
+55505 3 55500
+//Buren:
+//55502
+//55500
+Verbonden: 55505
+HOI6
+
+Process 55502:
+> R
+55502 0 local
+55503 1 55503
+55504 1 55504
+55505 2 55504
+55501 1 55501
+55500 1 55500
+//Buren:
+//55503
+//55501
+//55504
+//55500
+> B 55501 HOI6
+Bericht voor 55501 doorgestuurd naar 55501
+
+Process 55503:
+Verbonden: 55500
+> R
+55503 0 local
+55505 1 55505
+55502 1 55502
+55504 2 55502
+55501 2 55500
+55500 1 55500
+//Buren:
+//55505
+//55502
+//55500
+Bericht voor 55500 doorgestuurd naar 55500
+
+Process 55504:
+> R
+55504 0 local
+55505 1 55505
+55503 2 55502
+55502 1 55502
+55501 2 55502
+55500 2 55502
+//Buren:
+//55505
+//55502
+
+Process 55505:
+> R
+55505 0 local
+55503 1 55503
+55504 1 55504
+55502 2 55504
+55501 3 55503
+55500 2 55503
+//Buren:
+//55504
+//55503
+> B 55500 HOI5
+Bericht voor 55500 doorgestuurd naar 55503
+> C 55501
+Verbonden: 55501
+
+------------------------------------
+
+1;Standaard;Correct;0,63;Berichten sturen in gewijzigd netwerk
+Test 1 - Standaard
+
+Verbinding van 0 naar 3 gemaakt.
+WAARSCHUWING: de afstandupdates ('Afstand naar ... is nu ... via ...') worden mogelijk niet goed weergegeven!
+Correct: na verandering klopt het netwerk weer.
+Correct: Berichtcheck - van 55505 naar 55500
+Verbinding van 5 naar 1 gemaakt.
+Correct: na verandering klopt netwerk weer.
+Correct: Berichtcheck - van 55502 naar 55501
+
+Log
+55500 > C 55503
+55503 < Verbonden: 55500
+55500 < Verbonden: 55503
+55500 > R
+55501 > R
+55502 > R
+55503 > R
+55500 < 55500 0 local
+55504 > R
+55505 > R
+55501 < 55501 0 local
+55501 < 55502 1 55502
+55501 < 55500 1 55500
+55502 < 55502 0 local
+55500 < 55501 1 55501
+55501 < 55504 2 55502
+55502 < 55503 1 55503
+55500 < 55502 1 55502
+55501 < 55503 2 55500
+55503 < 55503 0 local
+55500 < 55504 2 55502
+55502 < 55504 1 55504
+55503 < 55505 1 55505
+55501 < 55505 3 55500
+55500 < 55503 1 55503
+55502 < 55505 2 55504
+55504 < 55504 0 local
+55503 < 55502 1 55502
+55501 < //Buren:
+55500 < 55505 2 55503
+55501 < //55502
+55504 < 55505 1 55505
+55503 < 55504 2 55502
+55505 < 55505 0 local
+55501 < //55500
+55500 < //Buren:
+55504 < 55503 2 55502
+55503 < 55501 2 55500
+55505 < 55503 1 55503
+55504 < 55502 1 55502
+55505 < 55504 1 55504
+55503 < 55500 1 55500
+55505 < 55502 2 55504
+55503 < //Buren:
+55504 < 55501 2 55502
+55505 < 55501 3 55503
+55503 < //55505
+55502 < 55501 1 55501
+55504 < 55500 2 55502
+55503 < //55502
+55505 < 55500 2 55503
+55503 < //55500
+55502 < 55500 1 55500
+55504 < //Buren:
+55500 < //55501
+55505 < //Buren:
+55504 < //55505
+55500 < //55502
+55502 < //Buren:
+55505 < //55504
+55504 < //55502
+55500 < //55503
+55505 < //55503
+55502 < //55503
+55502 < //55501
+55502 < //55504
+55502 < //55500
+55505 > B 55500 HOI5
+55505 < Bericht voor 55500 doorgestuurd naar 55503
+55500 < HOI5
+55503 < Bericht voor 55500 doorgestuurd naar 55500
+55505 > C 55501
+55501 < Verbonden: 55505
+55505 < Verbonden: 55501
+55502 > B 55501 HOI6
+55501 < HOI6
+55502 < Bericht voor 55501 doorgestuurd naar 55501
+
+Process 55500:
+> C 55503
+Verbonden: 55503
+> R
+55500 0 local
+55501 1 55501
+55502 1 55502
+55504 2 55502
+55503 1 55503
+55505 2 55503
+//Buren:
+//55501
+//55502
+//55503
+HOI5
+
+Process 55501:
+> R
+55501 0 local
+55502 1 55502
+55500 1 55500
+55504 2 55502
+55503 2 55500
+55505 3 55500
+//Buren:
+//55502
+//55500
+Verbonden: 55505
+HOI6
+
+Process 55502:
+> R
+55502 0 local
+55503 1 55503
+55504 1 55504
+55505 2 55504
+55501 1 55501
+55500 1 55500
+//Buren:
+//55503
+//55501
+//55504
+//55500
+> B 55501 HOI6
+Bericht voor 55501 doorgestuurd naar 55501
+
+Process 55503:
+Verbonden: 55500
+> R
+55503 0 local
+55505 1 55505
+55502 1 55502
+55504 2 55502
+55501 2 55500
+55500 1 55500
+//Buren:
+//55505
+//55502
+//55500
+Bericht voor 55500 doorgestuurd naar 55500
+
+Process 55504:
+> R
+55504 0 local
+55505 1 55505
+55503 2 55502
+55502 1 55502
+55501 2 55502
+55500 2 55502
+//Buren:
+//55505
+//55502
+
+Process 55505:
+> R
+55505 0 local
+55503 1 55503
+55504 1 55504
+55502 2 55504
+55501 3 55503
+55500 2 55503
+//Buren:
+//55504
+//55503
+> B 55500 HOI5
+Bericht voor 55500 doorgestuurd naar 55503
+> C 55501
+Verbonden: 55501
+
+------------------------------------
+
+1;Standaard;Correct;10,46;Verbindingen verbreken
+Test 1 - Standaard
+
+Verbinding van 0 naar 3 verbroken.
+WAARSCHUWING: de afstandupdates ('Afstand naar ... is nu ... via ...') worden mogelijk niet goed weergegeven!
+Correct: na verandering klopt het netwerk weer.
+Correct: Berichtcheck - van 55505 naar 55500
+Verbinding van 2 naar 1 verbroken.
+WAARSCHUWING: de afstandupdates ('Afstand naar ... is nu ... via ...') worden mogelijk niet goed weergegeven!
+Correct: na verandering klopt het netwerk weer.
+Correct: Berichtcheck - van 55502 naar 55501
+
+Log
+55500 > D 55503
+55500 < Verbroken: 55503
+55503 < Verbroken: 55500
+55500 > R
+55501 > R
+55502 > R
+55500 < 55500 0 local
+55503 > R
+55504 > R
+55504 < 55504 0 local
+55505 > R
+55502 < 55502 0 local
+55505 < 55505 0 local
+55502 < 55503 1 55503
+55505 < 55503 1 55503
+55502 < 55504 1 55504
+55502 < 55505 2 55503
+55505 < 55504 1 55504
+55504 < 55505 1 55505
+55505 < 55502 2 55503
+55504 < 55503 2 55502
+55505 < 55501 1 55501
+55504 < 55502 1 55502
+55505 < 55500 2 55501
+55504 < 55501 2 55505
+55504 < 55500 2 55502
+55505 < //Buren:
+55504 < //Buren:
+55505 < //55504
+55503 < 55503 0 local
+55504 < //55505
+55505 < //55503
+55504 < //55502
+55505 < //55501
+55503 < 55505 1 55505
+55500 < 55501 1 55501
+55503 < 55502 1 55502
+55500 < 55502 1 55502
+55503 < 55504 2 55502
+55500 < 55504 2 55502
+55501 < 55501 0 local
+55503 < 55501 2 55505
+55500 < 55503 2 55502
+55501 < 55502 1 55502
+55503 < 55500 2 55502
+55500 < 55505 2 55501
+55501 < 55500 1 55500
+55503 < //Buren:
+55500 < //Buren:
+55503 < //55505
+55502 < 55501 1 55501
+55500 < //55501
+55503 < //55502
+55500 < //55502
+55501 < 55504 2 55505
+55502 < 55500 1 55500
+55501 < 55503 2 55502
+55502 < //Buren:
+55502 < //55503
+55501 < 55505 1 55505
+55502 < //55501
+55501 < //Buren:
+55502 < //55504
+55501 < //55502
+55502 < //55500
+55501 < //55500
+55501 < //55505
+55505 > B 55500 HOI7
+55505 < Bericht voor 55500 doorgestuurd naar 55501
+55500 < HOI7
+55501 < Bericht voor 55500 doorgestuurd naar 55500
+55502 > D 55501
+55502 < Verbroken: 55501
+55501 < Verbroken: 55502
+55500 > R
+55501 > R
+55502 > R
+55500 < 55500 0 local
+55503 > R
+55504 > R
+55505 > R
+55501 < 55501 0 local
+55500 < 55501 1 55501
+55501 < 55502 2 55500
+55500 < 55502 1 55502
+55502 < 55502 0 local
+55504 < 55504 0 local
+55500 < 55504 2 55502
+55501 < 55500 1 55500
+55503 < 55503 0 local
+55502 < 55503 1 55503
+55504 < 55505 1 55505
+55501 < 55504 2 55505
+55500 < 55503 2 55502
+55503 < 55505 1 55505
+55502 < 55504 1 55504
+55500 < 55505 2 55501
+55504 < 55503 2 55502
+55501 < 55503 2 55505
+55503 < 55502 1 55502
+55504 < 55502 1 55502
+55501 < 55505 1 55505
+55502 < 55505 2 55503
+55500 < //Buren:
+55503 < 55504 2 55502
+55505 < 55505 0 local
+55500 < //55501
+55504 < 55501 2 55505
+55501 < //Buren:
+55502 < 55501 2 55500
+55503 < 55501 2 55505
+55505 < 55503 1 55503
+55500 < //55502
+55501 < //55500
+55504 < 55500 2 55502
+55502 < 55500 1 55500
+55501 < //55505
+55503 < 55500 2 55502
+55505 < 55504 1 55504
+55502 < //Buren:
+55504 < //Buren:
+55503 < //Buren:
+55505 < 55502 2 55504
+55502 < //55503
+55504 < //55505
+55502 < //55504
+55503 < //55505
+55504 < //55502
+55502 < //55500
+55505 < 55501 1 55501
+55503 < //55502
+55505 < 55500 2 55501
+55505 < //Buren:
+55505 < //55504
+55505 < //55503
+55505 < //55501
+55502 > B 55501 HOI8
+55502 < Bericht voor 55501 doorgestuurd naar 55500
+55501 < HOI8
+55500 < Bericht voor 55501 doorgestuurd naar 55501
+
+Process 55500:
+> D 55503
+Verbroken: 55503
+> R
+55500 0 local
+55501 1 55501
+55502 1 55502
+55504 2 55502
+55503 2 55502
+55505 2 55501
+//Buren:
+//55501
+//55502
+HOI7
+> R
+55500 0 local
+55501 1 55501
+55502 1 55502
+55504 2 55502
+55503 2 55502
+55505 2 55501
+//Buren:
+//55501
+//55502
+Bericht voor 55501 doorgestuurd naar 55501
+
+Process 55501:
+> R
+55501 0 local
+55502 1 55502
+55500 1 55500
+55504 2 55505
+55503 2 55502
+55505 1 55505
+//Buren:
+//55502
+//55500
+//55505
+Bericht voor 55500 doorgestuurd naar 55500
+Verbroken: 55502
+> R
+55501 0 local
+55502 2 55500
+55500 1 55500
+55504 2 55505
+55503 2 55505
+55505 1 55505
+//Buren:
+//55500
+//55505
+HOI8
+
+Process 55502:
+> R
+55502 0 local
+55503 1 55503
+55504 1 55504
+55505 2 55503
+55501 1 55501
+55500 1 55500
+//Buren:
+//55503
+//55501
+//55504
+//55500
+> D 55501
+Verbroken: 55501
+> R
+55502 0 local
+55503 1 55503
+55504 1 55504
+55505 2 55503
+55501 2 55500
+55500 1 55500
+//Buren:
+//55503
+//55504
+//55500
+> B 55501 HOI8
+Bericht voor 55501 doorgestuurd naar 55500
+
+Process 55503:
+Verbroken: 55500
+> R
+55503 0 local
+55505 1 55505
+55502 1 55502
+55504 2 55502
+55501 2 55505
+55500 2 55502
+//Buren:
+//55505
+//55502
+> R
+55503 0 local
+55505 1 55505
+55502 1 55502
+55504 2 55502
+55501 2 55505
+55500 2 55502
+//Buren:
+//55505
+//55502
+
+Process 55504:
+> R
+55504 0 local
+55505 1 55505
+55503 2 55502
+55502 1 55502
+55501 2 55505
+55500 2 55502
+//Buren:
+//55505
+//55502
+> R
+55504 0 local
+55505 1 55505
+55503 2 55502
+55502 1 55502
+55501 2 55505
+55500 2 55502
+//Buren:
+//55505
+//55502
+
+Process 55505:
+> R
+55505 0 local
+55503 1 55503
+55504 1 55504
+55502 2 55503
+55501 1 55501
+55500 2 55501
+//Buren:
+//55504
+//55503
+//55501
+> B 55500 HOI7
+Bericht voor 55500 doorgestuurd naar 55501
+> R
+55505 0 local
+55503 1 55503
+55504 1 55504
+55502 2 55504
+55501 1 55501
+55500 2 55501
+//Buren:
+//55504
+//55503
+//55501
+
+------------------------------------
+
+1;Standaard;Correct;0,06;Berichten sturen in gewijzigd netwerk
+Test 1 - Standaard
+
+Verbinding van 0 naar 3 verbroken.
+WAARSCHUWING: de afstandupdates ('Afstand naar ... is nu ... via ...') worden mogelijk niet goed weergegeven!
+Correct: na verandering klopt het netwerk weer.
+Correct: Berichtcheck - van 55505 naar 55500
+Verbinding van 2 naar 1 verbroken.
+WAARSCHUWING: de afstandupdates ('Afstand naar ... is nu ... via ...') worden mogelijk niet goed weergegeven!
+Correct: na verandering klopt het netwerk weer.
+Correct: Berichtcheck - van 55502 naar 55501
+
+Log
+55500 > D 55503
+55500 < Verbroken: 55503
+55503 < Verbroken: 55500
+55500 > R
+55501 > R
+55502 > R
+55500 < 55500 0 local
+55503 > R
+55504 > R
+55504 < 55504 0 local
+55505 > R
+55502 < 55502 0 local
+55505 < 55505 0 local
+55502 < 55503 1 55503
+55505 < 55503 1 55503
+55502 < 55504 1 55504
+55502 < 55505 2 55503
+55505 < 55504 1 55504
+55504 < 55505 1 55505
+55505 < 55502 2 55503
+55504 < 55503 2 55502
+55505 < 55501 1 55501
+55504 < 55502 1 55502
+55505 < 55500 2 55501
+55504 < 55501 2 55505
+55504 < 55500 2 55502
+55505 < //Buren:
+55504 < //Buren:
+55505 < //55504
+55503 < 55503 0 local
+55504 < //55505
+55505 < //55503
+55504 < //55502
+55505 < //55501
+55503 < 55505 1 55505
+55500 < 55501 1 55501
+55503 < 55502 1 55502
+55500 < 55502 1 55502
+55503 < 55504 2 55502
+55500 < 55504 2 55502
+55501 < 55501 0 local
+55503 < 55501 2 55505
+55500 < 55503 2 55502
+55501 < 55502 1 55502
+55503 < 55500 2 55502
+55500 < 55505 2 55501
+55501 < 55500 1 55500
+55503 < //Buren:
+55500 < //Buren:
+55503 < //55505
+55502 < 55501 1 55501
+55500 < //55501
+55503 < //55502
+55500 < //55502
+55501 < 55504 2 55505
+55502 < 55500 1 55500
+55501 < 55503 2 55502
+55502 < //Buren:
+55502 < //55503
+55501 < 55505 1 55505
+55502 < //55501
+55501 < //Buren:
+55502 < //55504
+55501 < //55502
+55502 < //55500
+55501 < //55500
+55501 < //55505
+55505 > B 55500 HOI7
+55505 < Bericht voor 55500 doorgestuurd naar 55501
+55500 < HOI7
+55501 < Bericht voor 55500 doorgestuurd naar 55500
+55502 > D 55501
+55502 < Verbroken: 55501
+55501 < Verbroken: 55502
+55500 > R
+55501 > R
+55502 > R
+55500 < 55500 0 local
+55503 > R
+55504 > R
+55505 > R
+55501 < 55501 0 local
+55500 < 55501 1 55501
+55501 < 55502 2 55500
+55500 < 55502 1 55502
+55502 < 55502 0 local
+55504 < 55504 0 local
+55500 < 55504 2 55502
+55501 < 55500 1 55500
+55503 < 55503 0 local
+55502 < 55503 1 55503
+55504 < 55505 1 55505
+55501 < 55504 2 55505
+55500 < 55503 2 55502
+55503 < 55505 1 55505
+55502 < 55504 1 55504
+55500 < 55505 2 55501
+55504 < 55503 2 55502
+55501 < 55503 2 55505
+55503 < 55502 1 55502
+55504 < 55502 1 55502
+55501 < 55505 1 55505
+55502 < 55505 2 55503
+55500 < //Buren:
+55503 < 55504 2 55502
+55505 < 55505 0 local
+55500 < //55501
+55504 < 55501 2 55505
+55501 < //Buren:
+55502 < 55501 2 55500
+55503 < 55501 2 55505
+55505 < 55503 1 55503
+55500 < //55502
+55501 < //55500
+55504 < 55500 2 55502
+55502 < 55500 1 55500
+55501 < //55505
+55503 < 55500 2 55502
+55505 < 55504 1 55504
+55502 < //Buren:
+55504 < //Buren:
+55503 < //Buren:
+55505 < 55502 2 55504
+55502 < //55503
+55504 < //55505
+55502 < //55504
+55503 < //55505
+55504 < //55502
+55502 < //55500
+55505 < 55501 1 55501
+55503 < //55502
+55505 < 55500 2 55501
+55505 < //Buren:
+55505 < //55504
+55505 < //55503
+55505 < //55501
+55502 > B 55501 HOI8
+55502 < Bericht voor 55501 doorgestuurd naar 55500
+55501 < HOI8
+55500 < Bericht voor 55501 doorgestuurd naar 55501
+
+Process 55500:
+> D 55503
+Verbroken: 55503
+> R
+55500 0 local
+55501 1 55501
+55502 1 55502
+55504 2 55502
+55503 2 55502
+55505 2 55501
+//Buren:
+//55501
+//55502
+HOI7
+> R
+55500 0 local
+55501 1 55501
+55502 1 55502
+55504 2 55502
+55503 2 55502
+55505 2 55501
+//Buren:
+//55501
+//55502
+Bericht voor 55501 doorgestuurd naar 55501
+
+Process 55501:
+> R
+55501 0 local
+55502 1 55502
+55500 1 55500
+55504 2 55505
+55503 2 55502
+55505 1 55505
+//Buren:
+//55502
+//55500
+//55505
+Bericht voor 55500 doorgestuurd naar 55500
+Verbroken: 55502
+> R
+55501 0 local
+55502 2 55500
+55500 1 55500
+55504 2 55505
+55503 2 55505
+55505 1 55505
+//Buren:
+//55500
+//55505
+HOI8
+
+Process 55502:
+> R
+55502 0 local
+55503 1 55503
+55504 1 55504
+55505 2 55503
+55501 1 55501
+55500 1 55500
+//Buren:
+//55503
+//55501
+//55504
+//55500
+> D 55501
+Verbroken: 55501
+> R
+55502 0 local
+55503 1 55503
+55504 1 55504
+55505 2 55503
+55501 2 55500
+55500 1 55500
+//Buren:
+//55503
+//55504
+//55500
+> B 55501 HOI8
+Bericht voor 55501 doorgestuurd naar 55500
+
+Process 55503:
+Verbroken: 55500
+> R
+55503 0 local
+55505 1 55505
+55502 1 55502
+55504 2 55502
+55501 2 55505
+55500 2 55502
+//Buren:
+//55505
+//55502
+> R
+55503 0 local
+55505 1 55505
+55502 1 55502
+55504 2 55502
+55501 2 55505
+55500 2 55502
+//Buren:
+//55505
+//55502
+
+Process 55504:
+> R
+55504 0 local
+55505 1 55505
+55503 2 55502
+55502 1 55502
+55501 2 55505
+55500 2 55502
+//Buren:
+//55505
+//55502
+> R
+55504 0 local
+55505 1 55505
+55503 2 55502
+55502 1 55502
+55501 2 55505
+55500 2 55502
+//Buren:
+//55505
+//55502
+
+Process 55505:
+> R
+55505 0 local
+55503 1 55503
+55504 1 55504
+55502 2 55503
+55501 1 55501
+55500 2 55501
+//Buren:
+//55504
+//55503
+//55501
+> B 55500 HOI7
+Bericht voor 55500 doorgestuurd naar 55501
+> R
+55505 0 local
+55503 1 55503
+55504 1 55504
+55502 2 55504
+55501 1 55501
+55500 2 55501
+//Buren:
+//55504
+//55503
+//55501
+
+------------------------------------
+
+1;Standaard;Error;2,82;Netwerk onsamenhangend maken
+Test 1 - Standaard
+
+Process 55502 gercasht met foutmelding:
+Process is terminated due to StackOverflowException.
+
+Verbinding van 2 naar 3 verbroken.
+Verbinding van 2 naar 4 verbroken.
+Verbinding van 1 naar 5 verbroken.
+
+Log
+55502 > D 55503
+55503 < Verbroken: 55502
+55502 < Verbroken: 55503
+55502 > D 55504
+55502 < Verbroken: 55504
+55504 < Verbroken: 55502
+55501 > D 55505
+
+Process 55501:
+> D 55505
+
+Process 55502:
+> D 55503
+Verbroken: 55503
+> D 55504
+Verbroken: 55504
+
+Process 55503:
+Verbroken: 55502
+
+Process 55504:
+Verbroken: 55502
+
+------------------------------------
+
+2;Random;Incorrect;2,81;Opstarten netwerk
+Test 2 - Random
+
+Fout bij opzetten netwerk - de routing-tabel is incorrect.
+Het programma ziet de verbinding van 55500 naar 55501 niet.
+Het programma ziet de verbinding van 55500 naar 55502 niet.
+Het programma ziet de verbinding van 55500 naar 55503 niet.
+Het programma ziet de verbinding van 55500 naar 55504 niet.
+Het programma ziet de verbinding van 55500 naar 55505 niet.
+Het programma ziet de verbinding van 55500 naar 55506 niet.
+Het programma ziet de verbinding van 55500 naar 55507 niet.
+Het programma ziet de verbinding van 55500 naar 55508 niet.
+Het programma ziet de verbinding van 55501 naar 55500 niet.
+Het programma ziet de verbinding van 55501 naar 55502 niet.
+Het programma ziet de verbinding van 55501 naar 55503 niet.
+Het programma ziet de verbinding van 55501 naar 55504 niet.
+Het programma ziet de verbinding van 55501 naar 55505 niet.
+Het programma ziet de verbinding van 55501 naar 55506 niet.
+Het programma ziet de verbinding van 55501 naar 55507 niet.
+Het programma ziet de verbinding van 55501 naar 55508 niet.
+Het programma ziet de verbinding van 55502 naar 55500 niet.
+Het programma ziet de verbinding van 55502 naar 55501 niet.
+Het programma ziet de verbinding van 55502 naar 55503 niet.
+Het programma ziet de verbinding van 55502 naar 55504 niet.
+Het programma ziet de verbinding van 55502 naar 55505 niet.
+Het programma ziet de verbinding van 55502 naar 55506 niet.
+Het programma ziet de verbinding van 55502 naar 55507 niet.
+Het programma ziet de verbinding van 55502 naar 55508 niet.
+Het programma ziet de verbinding van 55503 naar 55500 niet.
+Het programma ziet de verbinding van 55503 naar 55501 niet.
+Het programma ziet de verbinding van 55503 naar 55502 niet.
+Het programma ziet de verbinding van 55503 naar 55504 niet.
+Het programma ziet de verbinding van 55503 naar 55505 niet.
+Het programma ziet de verbinding van 55503 naar 55506 niet.
+Het programma ziet de verbinding van 55503 naar 55507 niet.
+Het programma ziet de verbinding van 55503 naar 55508 niet.
+Het programma ziet de verbinding van 55504 naar 55500 niet.
+Het programma ziet de verbinding van 55504 naar 55501 niet.
+Het programma ziet de verbinding van 55504 naar 55502 niet.
+Het programma ziet de verbinding van 55504 naar 55503 niet.
+Het programma ziet de verbinding van 55504 naar 55505 niet.
+Het programma ziet de verbinding van 55504 naar 55506 niet.
+Het programma ziet de verbinding van 55504 naar 55507 niet.
+Het programma ziet de verbinding van 55504 naar 55508 niet.
+Het programma ziet de verbinding van 55505 naar 55500 niet.
+Het programma ziet de verbinding van 55505 naar 55501 niet.
+Het programma ziet de verbinding van 55505 naar 55502 niet.
+Het programma ziet de verbinding van 55505 naar 55503 niet.
+Het programma ziet de verbinding van 55505 naar 55504 niet.
+Het programma ziet de verbinding van 55505 naar 55506 niet.
+Het programma ziet de verbinding van 55505 naar 55507 niet.
+Het programma ziet de verbinding van 55505 naar 55508 niet.
+Het programma ziet de verbinding van 55506 naar 55500 niet.
+Het programma ziet de verbinding van 55506 naar 55501 niet.
+Het programma ziet de verbinding van 55506 naar 55502 niet.
+Het programma ziet de verbinding van 55506 naar 55503 niet.
+Het programma ziet de verbinding van 55506 naar 55504 niet.
+Het programma ziet de verbinding van 55506 naar 55505 niet.
+Het programma ziet de verbinding van 55506 naar 55507 niet.
+Het programma ziet de verbinding van 55506 naar 55508 niet.
+Het programma ziet de verbinding van 55507 naar 55500 niet.
+Het programma ziet de verbinding van 55507 naar 55501 niet.
+Het programma ziet de verbinding van 55507 naar 55502 niet.
+Het programma ziet de verbinding van 55507 naar 55503 niet.
+Het programma ziet de verbinding van 55507 naar 55504 niet.
+Het programma ziet de verbinding van 55507 naar 55505 niet.
+Het programma ziet de verbinding van 55507 naar 55506 niet.
+Het programma ziet de verbinding van 55507 naar 55508 niet.
+Het programma ziet de verbinding van 55508 naar 55500 niet.
+Het programma ziet de verbinding van 55508 naar 55501 niet.
+Het programma ziet de verbinding van 55508 naar 55502 niet.
+Het programma ziet de verbinding van 55508 naar 55503 niet.
+Het programma ziet de verbinding van 55508 naar 55504 niet.
+Het programma ziet de verbinding van 55508 naar 55505 niet.
+Het programma ziet de verbinding van 55508 naar 55506 niet.
+Het programma ziet de verbinding van 55508 naar 55507 niet.
 
 Log
 start NetwProg.exe 55500 55501 55502 55503 55506 55507
@@ -44,684 +1376,42 @@ start NetwProg.exe 55505 55501 55503 55506
 start NetwProg.exe 55506 55500 55501 55503 55504 55505 55507
 start NetwProg.exe 55507 55500 55506
 start NetwProg.exe 55508 55503
-55504 < Verbonden: 55502
-55502 < Verbonden: 55504
-55501 < Verbonden: 55500
-55500 < Verbonden: 55501
-55502 < Verbonden: 55501
-55501 < Verbonden: 55502
-55506 < Verbonden: 55505
-55507 < Verbonden: 55506
-55505 < Verbonden: 55506
-55506 < Verbonden: 55507
-55504 < Verbonden: 55506
-55503 < Verbonden: 55504
-55504 < Verbonden: 55503
-55506 < Verbonden: 55504
-55502 < Verbonden: 55500
-55500 < Verbonden: 55502
-55504 < Verbonden: 55501
-55505 < Verbonden: 55503
-55503 < Verbonden: 55505
-55501 < Verbonden: 55504
-55503 < Verbonden: 55500
-55500 < Verbonden: 55503
-55506 < Verbonden: 55503
-55503 < Verbonden: 55506
-55505 < Verbonden: 55501
-55501 < Verbonden: 55505
-55506 < Verbonden: 55500
-55500 < Verbonden: 55506
-55508 < Verbonden: 55503
-55503 < Verbonden: 55508
-55506 < Verbonden: 55501
-55501 < Verbonden: 55506
-55507 < Verbonden: 55500
-55500 < Verbonden: 55507
 55500 > R
-55500 < 55500 0 local
-55500 < 55501 1 55501
-55500 < 55502 1 55502
-55500 < 55503 1 55503
-55500 < 55504 2 55506
-55500 < 55507 1 55507
-55500 < 55505 2 55501
-55500 < 55506 1 55506
-55500 < 55508 2 55503
-55500 < //Buren:
-55500 < //55501
-55500 < //55502
-55500 < //55503
-55500 < //55506
-55500 < //55507
 55501 > R
-55501 < 55501 0 local
-55501 < 55502 1 55502
-55501 < 55500 1 55500
-55501 < 55504 1 55504
-55501 < 55503 2 55500
-55501 < 55507 2 55500
-55501 < 55505 1 55505
-55501 < 55506 1 55506
-55501 < 55508 3 55500
-55501 < //Buren:
-55501 < //55502
-55501 < //55500
-55501 < //55504
-55501 < //55505
-55501 < //55506
 55502 > R
-55502 < 55502 0 local
-55502 < 55504 1 55504
-55502 < 55501 1 55501
-55502 < 55500 1 55500
-55502 < 55503 2 55500
-55502 < 55507 2 55500
-55502 < 55505 2 55501
-55502 < 55506 2 55500
-55502 < 55508 3 55500
-55502 < //Buren:
-55502 < //55504
-55502 < //55501
-55502 < //55500
 55503 > R
-55503 < 55503 0 local
-55503 < 55504 1 55504
-55503 < 55505 1 55505
-55503 < 55506 1 55506
-55503 < 55507 2 55500
-55503 < 55502 2 55500
-55503 < 55501 2 55506
-55503 < 55500 1 55500
-55503 < 55508 1 55508
-55503 < //Buren:
-55503 < //55504
-55503 < //55505
-55503 < //55506
-55503 < //55508
-55503 < //55500
 55504 > R
-55504 < 55504 0 local
-55504 < 55506 1 55506
-55504 < 55503 1 55503
-55504 < 55507 2 55506
-55504 < 55505 2 55501
-55504 < 55502 1 55502
-55504 < 55501 1 55501
-55504 < 55500 2 55503
-55504 < 55508 2 55503
-55504 < //Buren:
-55504 < //55506
-55504 < //55502
-55504 < //55503
-55504 < //55501
 55505 > R
-55505 < 55505 0 local
-55505 < 55506 1 55506
-55505 < 55507 2 55506
-55505 < 55504 2 55501
-55505 < 55503 1 55503
-55505 < 55502 2 55501
-55505 < 55501 1 55501
-55505 < 55500 2 55503
-55505 < 55508 2 55503
-55505 < //Buren:
-55505 < //55506
-55505 < //55503
-55505 < //55501
 55506 > R
-55506 < 55506 0 local
-55506 < 55507 1 55507
-55506 < 55505 1 55505
-55506 < 55504 1 55504
-55506 < 55503 1 55503
-55506 < 55502 2 55501
-55506 < 55501 1 55501
-55506 < 55500 1 55500
-55506 < 55508 2 55503
-55506 < //Buren:
-55506 < //55507
-55506 < //55505
-55506 < //55504
-55506 < //55503
-55506 < //55500
-55506 < //55501
 55507 > R
-55507 < 55507 0 local
-55507 < 55506 1 55506
-55507 < 55505 2 55506
-55507 < 55504 2 55506
-55507 < 55503 2 55500
-55507 < 55502 2 55500
-55507 < 55501 2 55500
-55507 < 55500 1 55500
-55507 < 55508 3 55500
-55507 < //Buren:
-55507 < //55506
-55507 < //55500
 55508 > R
-55508 < 55508 0 local
-55508 < 55503 1 55503
-55508 < 55504 2 55503
-55508 < 55505 2 55503
-55508 < 55506 2 55503
-55508 < 55507 3 55503
-55508 < 55502 3 55503
-55508 < 55501 3 55503
-55508 < 55500 2 55503
-55508 < //Buren:
-55508 < //55503
 
 Process 55500:
-Verbonden: 55501
-Verbonden: 55502
-Verbonden: 55503
-Verbonden: 55506
-Verbonden: 55507
 > R
-55500 0 local
-55501 1 55501
-55502 1 55502
-55503 1 55503
-55504 2 55506
-55507 1 55507
-55505 2 55501
-55506 1 55506
-55508 2 55503
-//Buren:
-//55501
-//55502
-//55503
-//55506
-//55507
 
 Process 55501:
-Verbonden: 55500
-Verbonden: 55502
-Verbonden: 55504
-Verbonden: 55505
-Verbonden: 55506
 > R
-55501 0 local
-55502 1 55502
-55500 1 55500
-55504 1 55504
-55503 2 55500
-55507 2 55500
-55505 1 55505
-55506 1 55506
-55508 3 55500
-//Buren:
-//55502
-//55500
-//55504
-//55505
-//55506
 
 Process 55502:
-Verbonden: 55504
-Verbonden: 55501
-Verbonden: 55500
 > R
-55502 0 local
-55504 1 55504
-55501 1 55501
-55500 1 55500
-55503 2 55500
-55507 2 55500
-55505 2 55501
-55506 2 55500
-55508 3 55500
-//Buren:
-//55504
-//55501
-//55500
 
 Process 55503:
-Verbonden: 55504
-Verbonden: 55505
-Verbonden: 55500
-Verbonden: 55506
-Verbonden: 55508
 > R
-55503 0 local
-55504 1 55504
-55505 1 55505
-55506 1 55506
-55507 2 55500
-55502 2 55500
-55501 2 55506
-55500 1 55500
-55508 1 55508
-//Buren:
-//55504
-//55505
-//55506
-//55508
-//55500
 
 Process 55504:
-Verbonden: 55502
-Verbonden: 55506
-Verbonden: 55503
-Verbonden: 55501
 > R
-55504 0 local
-55506 1 55506
-55503 1 55503
-55507 2 55506
-55505 2 55501
-55502 1 55502
-55501 1 55501
-55500 2 55503
-55508 2 55503
-//Buren:
-//55506
-//55502
-//55503
-//55501
 
 Process 55505:
-Verbonden: 55506
-Verbonden: 55503
-Verbonden: 55501
 > R
-55505 0 local
-55506 1 55506
-55507 2 55506
-55504 2 55501
-55503 1 55503
-55502 2 55501
-55501 1 55501
-55500 2 55503
-55508 2 55503
-//Buren:
-//55506
-//55503
-//55501
 
 Process 55506:
-Verbonden: 55505
-Verbonden: 55507
-Verbonden: 55504
-Verbonden: 55503
-Verbonden: 55500
-Verbonden: 55501
 > R
-55506 0 local
-55507 1 55507
-55505 1 55505
-55504 1 55504
-55503 1 55503
-55502 2 55501
-55501 1 55501
-55500 1 55500
-55508 2 55503
-//Buren:
-//55507
-//55505
-//55504
-//55503
-//55500
-//55501
 
 Process 55507:
-Verbonden: 55506
-Verbonden: 55500
 > R
-55507 0 local
-55506 1 55506
-55505 2 55506
-55504 2 55506
-55503 2 55500
-55502 2 55500
-55501 2 55500
-55500 1 55500
-55508 3 55500
-//Buren:
-//55506
-//55500
 
 Process 55508:
-Verbonden: 55503
 > R
-55508 0 local
-55503 1 55503
-55504 2 55503
-55505 2 55503
-55506 2 55503
-55507 3 55503
-55502 3 55503
-55501 3 55503
-55500 2 55503
-//Buren:
-//55503
-
-------------------------------------
-
-2;Random;Correct;10,03;Berichten sturen
-Test 2 - Random
-
-Correct: Berichtcheck - van 55507 naar 55500
-Correct: Berichtcheck - van 55502 naar 55508
-Correct: Berichtcheck - van 55506 naar 55503
-Correct: Berichtcheck - van 55503 naar 55506
-Correct: Berichtcheck - van 55506 naar 55504
-Correct: Berichtcheck - van 55502 naar 55503
-Correct: Berichtcheck - van 55504 naar 55501
-Correct: Berichtcheck - van 55503 naar 55506
-Correct: Berichtcheck - van 55503 naar 55501
-Correct: Berichtcheck - van 55508 naar 55500
-
-Log
-55507 > B 55500 HOI0
-55500 < HOI0
-55507 < Bericht voor 55500 doorgestuurd naar 55500
-55502 > B 55508 HOI1
-55502 < Bericht voor 55508 doorgestuurd naar 55500
-55500 < Bericht voor 55508 doorgestuurd naar 55503
-55508 < HOI1
-55503 < Bericht voor 55508 doorgestuurd naar 55508
-55506 > B 55503 HOI2
-55503 < HOI2
-55506 < Bericht voor 55503 doorgestuurd naar 55503
-55503 > B 55506 HOI3
-55506 < HOI3
-55503 < Bericht voor 55506 doorgestuurd naar 55506
-55506 > B 55504 HOI4
-55506 < Bericht voor 55504 doorgestuurd naar 55504
-55504 < HOI4
-55502 > B 55503 HOI5
-55502 < Bericht voor 55503 doorgestuurd naar 55500
-55503 < HOI5
-55500 < Bericht voor 55503 doorgestuurd naar 55503
-55504 > B 55501 HOI6
-55501 < HOI6
-55504 < Bericht voor 55501 doorgestuurd naar 55501
-55503 > B 55506 HOI7
-55506 < HOI7
-55503 < Bericht voor 55506 doorgestuurd naar 55506
-55503 > B 55501 HOI8
-55503 < Bericht voor 55501 doorgestuurd naar 55506
-55501 < HOI8
-55506 < Bericht voor 55501 doorgestuurd naar 55501
-55508 > B 55500 HOI9
-55508 < Bericht voor 55500 doorgestuurd naar 55503
-55500 < HOI9
-55503 < Bericht voor 55500 doorgestuurd naar 55500
-
-Process 55500:
-HOI0
-Bericht voor 55508 doorgestuurd naar 55503
-Bericht voor 55503 doorgestuurd naar 55503
-HOI9
-
-Process 55501:
-HOI6
-HOI8
-
-Process 55502:
-> B 55508 HOI1
-Bericht voor 55508 doorgestuurd naar 55500
-> B 55503 HOI5
-Bericht voor 55503 doorgestuurd naar 55500
-
-Process 55503:
-Bericht voor 55508 doorgestuurd naar 55508
-HOI2
-> B 55506 HOI3
-Bericht voor 55506 doorgestuurd naar 55506
-HOI5
-> B 55506 HOI7
-Bericht voor 55506 doorgestuurd naar 55506
-> B 55501 HOI8
-Bericht voor 55501 doorgestuurd naar 55506
-Bericht voor 55500 doorgestuurd naar 55500
-
-Process 55504:
-HOI4
-> B 55501 HOI6
-Bericht voor 55501 doorgestuurd naar 55501
-
-Process 55506:
-> B 55503 HOI2
-Bericht voor 55503 doorgestuurd naar 55503
-HOI3
-> B 55504 HOI4
-Bericht voor 55504 doorgestuurd naar 55504
-HOI7
-Bericht voor 55501 doorgestuurd naar 55501
-
-Process 55507:
-> B 55500 HOI0
-Bericht voor 55500 doorgestuurd naar 55500
-
-Process 55508:
-HOI1
-> B 55500 HOI9
-Bericht voor 55500 doorgestuurd naar 55503
-
-------------------------------------
-
-2;Random;Error;6,17;Verbindingen verbreken
-Test 2 - Random
-
-Process 55503 gercasht met foutmelding:
-Onverwerkte uitzondering: 
-Onverwerkte uitzondering: 
-
-
-Onverwerkte uitzondering: Onverwerkte uitzondering: System.IO.IOException: Kan geen gegevens lezen uit de transportverbinding: De externe host heeft een verbinding verbroken. ---> System.Net.Sockets.SocketException: De externe host heeft een verbinding verbroken
-   bij System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
-   bij System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
-   --- Einde van intern uitzonderingsstackpad ---
-   bij System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
-   bij System.IO.StreamReader.ReadBuffer()
-   bij System.IO.StreamReader.ReadLine()
-   bij NetwProg.Connection.ReaderThread() in C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwProg\Connection.cs:regel 48
-   bij System.Threading.ThreadHelper.ThreadStart_Context(Object state)
-   bij System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
-   bij System.Threading.ThreadHelper.ThreadStart()
-System.IO.IOException: Kan geen gegevens lezen uit de transportverbinding: De externe host heeft een verbinding verbroken. ---> System.Net.Sockets.SocketException: De externe host heeft een verbinding verbroken
-   bij System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
-   bij System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
-   --- Einde van intern uitzonderingsstackpad ---
-   bij System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
-   bij System.IO.StreamReader.ReadBuffer()
-   bij System.IO.StreamReader.ReadLine()
-   bij NetwProg.Connection.ReaderThread() in C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwProg\Connection.cs:regel 48
-   bij System.Threading.ThreadHelper.ThreadStart_Context(Object state)
-   bij System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
-   bij System.Threading.ThreadHelper.ThreadStart()
-System.IO.IOException: Kan geen gegevens lezen uit de transportverbinding: De externe host heeft een verbinding verbroken. ---> System.Net.Sockets.SocketException: De externe host heeft een verbinding verbroken
-   bij System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
-   bij System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
-   --- Einde van intern uitzonderingsstackpad ---
-   bij System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
-   bij System.IO.StreamReader.ReadBuffer()
-   bij System.IO.StreamReader.ReadLine()
-   bij NetwProg.Connection.ReaderThread() in C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwProg\Connection.cs:regel 48
-   bij System.Threading.ThreadHelper.ThreadStart_Context(Object state)
-   bij System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
-   bij System.Threading.ThreadHelper.ThreadStart()
-Onverwerkte uitzondering: System.IO.IOException: Kan geen gegevens lezen uit de transportverbinding: De externe host heeft een verbinding verbroken. ---> System.Net.Sockets.SocketException: De externe host heeft een verbinding verbroken
-   bij System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
-   bij System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
-   --- Einde van intern uitzonderingsstackpad ---
-   bij System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
-   bij System.IO.StreamReader.ReadBuffer()
-   bij System.IO.StreamReader.ReadLine()
-   bij NetwProg.Connection.ReaderThread() in C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwProg\Connection.cs:regel 48
-   bij System.Threading.ThreadHelper.ThreadStart_Context(Object state)
-   bij System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
-   bij System.Threading.ThreadHelper.ThreadStart()
-System.FormatException: De indeling van de invoertekenreeks is onjuist.
-   bij System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   bij System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   bij System.Int32.Parse(String s)
-   bij NetwProg.Connection.ReaderThread() in C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwProg\Connection.cs:regel 77
-   bij System.Threading.ThreadHelper.ThreadStart_Context(Object state)
-   bij System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
-   bij System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
-   bij System.Threading.ThreadHelper.ThreadStart()
-
-Verbinding van 0 naar 2 verbroken.
-Verbinding van 4 naar 2 verbroken.
-Verbinding van 0 naar 1 verbroken.
-Verbinding van 3 naar 8 verbroken.
-
-Log
-55500 > D 55502
-55502 < Verbroken: 55500
-55500 < Verbroken: 55502
-55504 > D 55502
-55500 > D 55501
-55503 > D 55508
-
-Process 55500:
-> D 55502
-Verbroken: 55502
-> D 55501
-
-Process 55502:
-Verbroken: 55500
-
-Process 55503:
-> D 55508
-
-Process 55504:
-> D 55502
-
-------------------------------------
-
-4;2xStandaard;Error;1,48;Opstarten netwerk
-Test 4 - 2xStandaard
-
-Process 55500 gercasht met foutmelding:
-
-Log
-start NetwProg.exe 55500 55501 55502
-start NetwProg.exe 55501 55500 55502
-start NetwProg.exe 55502 55500 55501 55503 55504
-start NetwProg.exe 55503 55502 55505
-start NetwProg.exe 55504 55502 55505
-start NetwProg.exe 55505 55503 55504
-start NetwProg.exe 55506 55507 55508
-start NetwProg.exe 55507 55506 55508
-start NetwProg.exe 55508 55506 55507 55509 55510
-start NetwProg.exe 55509 55508 55511
-start NetwProg.exe 55510 55508 55511
-start NetwProg.exe 55511 55509 55510
-55502 < Verbonden: 55501
-55501 < Verbonden: 55502
-55503 < Verbonden: 55502
-55502 < Verbonden: 55503
-55505 < Verbonden: 55503
-55503 < Verbonden: 55505
-55501 < Verbonden: 55500
-55500 < Verbonden: 55501
-55505 < Verbonden: 55504
-55504 < Verbonden: 55505
-55508 < Verbonden: 55507
-55507 < Verbonden: 55508
-
-Process 55500:
-Verbonden: 55501
-
-Process 55501:
-Verbonden: 55502
-Verbonden: 55500
-
-Process 55502:
-Verbonden: 55501
-Verbonden: 55503
-
-Process 55503:
-Verbonden: 55502
-Verbonden: 55505
-
-Process 55504:
-Verbonden: 55505
-
-Process 55505:
-Verbonden: 55503
-Verbonden: 55504
-
-Process 55507:
-Verbonden: 55508
-
-Process 55508:
-Verbonden: 55507
-
-------------------------------------
-
-4;2xStandaard;Error;2,05;Opstarten netwerk
-Test 4 - 2xStandaard
-
-Process 55500 gercasht met foutmelding:
-
-Log
-start NetwProg.exe 55500 55501 55502
-start NetwProg.exe 55501 55500 55502
-start NetwProg.exe 55502 55500 55501 55503 55504
-start NetwProg.exe 55503 55502 55505
-start NetwProg.exe 55504 55502 55505
-start NetwProg.exe 55505 55503 55504
-start NetwProg.exe 55506 55507 55508
-start NetwProg.exe 55507 55506 55508
-start NetwProg.exe 55508 55506 55507 55509 55510
-start NetwProg.exe 55509 55508 55511
-start NetwProg.exe 55510 55508 55511
-start NetwProg.exe 55511 55509 55510
-55502 < Verbonden: 55501
-55501 < Verbonden: 55502
-55503 < Verbonden: 55502
-55502 < Verbonden: 55503
-55505 < Verbonden: 55503
-55503 < Verbonden: 55505
-55501 < Verbonden: 55500
-55500 < Verbonden: 55501
-55505 < Verbonden: 55504
-55504 < Verbonden: 55505
-55508 < Verbonden: 55507
-55507 < Verbonden: 55508
-
-Process 55500:
-Verbonden: 55501
-
-Process 55501:
-Verbonden: 55502
-Verbonden: 55500
-
-Process 55502:
-Verbonden: 55501
-Verbonden: 55503
-
-Process 55503:
-Verbonden: 55502
-Verbonden: 55505
-
-Process 55504:
-Verbonden: 55505
-
-Process 55505:
-Verbonden: 55503
-Verbonden: 55504
-
-Process 55507:
-Verbonden: 55508
-
-Process 55508:
-Verbonden: 55507
 
 Microsoft Windows NT 6.2.9200.0 (x64)
 .NET version: 4.0.30319.42000

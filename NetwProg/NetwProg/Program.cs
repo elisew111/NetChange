@@ -128,7 +128,7 @@ namespace NetwProg
 
                         foreach (KeyValuePair<int, Connection> buur in Buren)
                         {
-                            buur.Value.Write.Write("Forward " + pad.Key + " 25 null " + MijnPoort);
+                            buur.Value.Write.Write("Forward " + pad.Key + " " + 25 + " " + null + " " + MijnPoort);
                             buur.Value.Write.WriteLine("ForwardDelete " + pad.Key + " " + MijnPoort);
                         }
 

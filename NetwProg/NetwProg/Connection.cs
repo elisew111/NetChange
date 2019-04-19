@@ -72,9 +72,8 @@ namespace NetwProg
                         int dest = int.Parse(delen[1]);
                         int _length = int.Parse(delen[2]);
                         string _closest = delen[3];
-                        string poort = delen[4];
-
-                    int intpoort = int.Parse(poort);
+                        int poort = int.Parse(delen[4]);
+                    
 
                         if(_closest == "null")
                         { _closest = null; }
@@ -88,7 +87,7 @@ namespace NetwProg
                             }
 
                             Path pad = new Path() { closest = _closest, length = _length };
-                            Program.RoutingTables[dest][intpoort] = pad;
+                            Program.RoutingTables[dest][poort] = pad;
                         
                         }
 
