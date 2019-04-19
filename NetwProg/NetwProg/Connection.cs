@@ -74,18 +74,31 @@ namespace NetwProg
                         string _closest = delen[3];
                         int poort = int.Parse(delen[4]);
 
-                        Program.EditPath(dest, poort.ToString(), (_length + 1));
+                        
 
                         lock (Program.lockobj)
                         {
-                            if (!Program.RoutingTables.ContainsKey(dest))
+                        if (_length <= 20)
+                        {
+                            if (!Program.RoutingTables.ContainsKey(dest) && _length <= 20)
                             {
                                 Dictionary<int, Path> table = new Dictionary<int, Path>();
                                 Program.RoutingTables.Add(dest, table);
                             }
+
                             Path pad = new Path() { closest = _closest, length = _length };
-                            Program.RoutingTables[dest][poort]= pad;
+                            Program.RoutingTables[dest][poort] = pad;
                         }
+                        else
+                        {
+                            if(Program.RoutingTables.ContainsKey(dest))
+                            {
+                                Program.RoutingTables[dest].Remove(poort);
+                            }
+                        }
+                        }
+
+                        Program.EditPath(dest, poort.ToString(), (_length + 1));
                     }
                     if (type == "Doorsturen")
                     {
@@ -101,15 +114,22 @@ namespace NetwProg
                         int dest = int.Parse(delen[2]);
                         lock (Program.lockobj)
                         {
+                            if(Program.Paden.ContainsKey(dest))
+                            {
                                 Program.Buren[poort].Write.WriteLine("Forward " + dest + " " + Program.Paden[dest].length + " " + Program.Paden[dest].closest + " " + Program.MijnPoort.ToString());
+                            }
                         }
                     }
                     if (type == "ForwardDelete")
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 3);
                         int dest = int.Parse(delen[1]);
-                        string closest = delen[2];
+                        string closest = delen[2].ToString();
                         Program.ForwardDelete(dest, closest);
+                    }
+                    if(type == "DeletePath")
+                    {
+                    Program.Paden.Remove(int.Parse(input.Split(' ')[1]));
                     }
                 }
             
