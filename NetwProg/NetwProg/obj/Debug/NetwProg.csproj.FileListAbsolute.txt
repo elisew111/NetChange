@@ -19,3 +19,10 @@ C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwP
 C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwProg\obj\Debug\NetwProg.csproj.CoreCompileInputs.cache
 C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwProg\obj\Debug\NetwProg.exe
 C:\Users\elise\OneDrive\Documenten\Gametech\Concurrency\NetChange\NetwProg\NetwProg\obj\Debug\NetwProg.pdb
+C:\Users\Elise\Documents\GameTech\NetChange\NetwProg\NetwProg\bin\Debug\NetwProg.exe.config
+C:\Users\Elise\Documents\GameTech\NetChange\NetwProg\NetwProg\bin\Debug\NetwProg.exe
+C:\Users\Elise\Documents\GameTech\NetChange\NetwProg\NetwProg\bin\Debug\NetwProg.pdb
+C:\Users\Elise\Documents\GameTech\NetChange\NetwProg\NetwProg\obj\Debug\NetwProg.csprojResolveAssemblyReference.cache
+C:\Users\Elise\Documents\GameTech\NetChange\NetwProg\NetwProg\obj\Debug\NetwProg.csproj.CoreCompileInputs.cache
+C:\Users\Elise\Documents\GameTech\NetChange\NetwProg\NetwProg\obj\Debug\NetwProg.exe
+C:\Users\Elise\Documents\GameTech\NetChange\NetwProg\NetwProg\obj\Debug\NetwProg.pdb

@@ -14,23 +14,17 @@ namespace NetwProg
         static public Dictionary<int, Connection> Buren = new Dictionary<int, Connection>(); //dictionary van buren
         static public Dictionary<int, Path> Paden = new Dictionary<int, Path>(); // en een van kortste paden naar anderen
 
-        static public Dictionary<int, Dictionary<int, Path>> RoutingTables = new Dictionary<int, Dictionary<int, Path>>();
-
-        //TODO: onthouden welke paden je als laatst gehoord hebt van elke buur
-
+        static public Dictionary<int, Dictionary<int, Path>> RoutingTables = new Dictionary<int, Dictionary<int, Path>>(); //nested dictionary met voor elke bestemming een dictionary met voor elke buur hun pad naar de bestemming
+        
         static public readonly object lockobj = new object(); //lock
-
-        static public int size;
-
+        
         static void Main(string[] args)
         {
             MijnPoort = int.Parse(args[0]);
             Console.Title = "NetChange " + MijnPoort;
             new Server(MijnPoort);
-
             
-
-            Paden.Add(MijnPoort, new Path() { length = 0, closest = "local" });
+            Paden.Add(MijnPoort, new Path() { length = 0, closest = "local" }); //pad naar mezelf
 
             for (int i = 1; i < args.Length; i++)
             {
@@ -39,21 +33,18 @@ namespace NetwProg
                 {
                     if (buur > MijnPoort)
                     {
-                        Connect(buur);
+                        Connect(buur);  //verbind met alle opgegeven buren
                     }
                 }
             }
-
             
-            
-
-            new Thread(() => ReadLoop()).Start();
+            new Thread(() => ReadLoop()).Start();   //thread voor readloop
 
 
 
         }
 
-        private static void ReadLoop()
+        private static void ReadLoop()  //lees en verwerk console input
         {
             while (true)
             {
@@ -64,13 +55,13 @@ namespace NetwProg
 
                     lock (lockobj)
                     {
-                        foreach (KeyValuePair<int, Path> pad in Paden) // print alle paden
+                        foreach (KeyValuePair<int, Path> pad in Paden) 
                         {
-                            if (pad.Value.length <= 20)
+                            if (pad.Value.length <= 20) //print alle paden die niet 'oneindig' lang zijn
                             { Console.WriteLine(pad.Key + " " + pad.Value.length + " " + pad.Value.closest); }
                         }
 
-                        Console.WriteLine("//Buren:");
+                        Console.WriteLine("//Buren:"); //voor debug doeleinden: laat zien met welke buren je verbonden bent
 
                         foreach (KeyValuePair<int, Connection> buur in Buren)
                         {
@@ -100,7 +91,7 @@ namespace NetwProg
                     int poort = int.Parse(input.Split()[1]);
                     if (Buren.ContainsKey(poort))
                     {
-                        Buren[poort].Write.WriteLine("Delete " + MijnPoort);
+                        Buren[poort].Write.WriteLine("Delete " + MijnPoort); //laat eerst je buur jouw deleten, want als je hem eerst delete kun je hem geen bericht meer sturen
                         Delete(poort);
                     }
 
@@ -109,37 +100,36 @@ namespace NetwProg
             }
         }
 
-        public static void Delete(int poort)
+        public static void Delete(int poort)    //verbreek de verbinding met een buur
         {
             lock (lockobj)
             {
-                if (Buren.ContainsKey(poort))
+                if (Buren.ContainsKey(poort))   //verwijder de buur uit Buren
                 {
                     Buren.Remove(poort);
                 }
 
                 foreach (KeyValuePair<int, Path> pad in Paden)
                 {
-                    if (pad.Value.closest == poort.ToString())
+                    if (pad.Value.closest == poort.ToString())  //voor alle paden die je hebt waarvoor je door je verwijderde buur ging:
                     {
-                        //EditPath(pad.Key, null, 25);
-                        Paden[pad.Key].length = 25;
+                        Paden[pad.Key].length = 25;             // maak de lengte hoog en closest null, paden met deze waarden worden genegeerd
                         Paden[pad.Key].closest = null;
 
                         foreach (KeyValuePair<int, Connection> buur in Buren)
                         {
-                            buur.Value.Write.Write("Forward " + pad.Key + " " + 25 + " " + null + " " + MijnPoort);
-                            buur.Value.Write.WriteLine("ForwardDelete " + pad.Key + " " + MijnPoort);
+                            //buur.Value.Write.Write("Forward " + pad.Key + " " + 25 + " " + null + " " + MijnPoort);       // Stuur je buur dit nieuwe pad zodat hij dit in zijn nested dictionary kan zetten. Dit veroorzaakt helaas een crash.
+                            buur.Value.Write.WriteLine("ForwardDelete " + pad.Key + " " + MijnPoort); //Laat je buren ook paden via jouw langs je verbroken verbinding verwijderen
                         }
 
                     }
                 }
 
-                VindNieuwePaden();
+                VindNieuwePaden(); //vervang 25 en null met betere waarden als er een ander pad is
 
                 foreach (KeyValuePair<int, Connection> buur in Buren)
                 {
-                    StuurBuren(buur.Value);
+                    StuurBuren(buur.Value);     //stuur je nieuwe routingtable naar al je buren
                 }
 
 
@@ -150,20 +140,17 @@ namespace NetwProg
 
         public static void VindNieuwePaden()
         {
-            //var toDelete = new List<int>();
-
             foreach (KeyValuePair<int, Path> pad in Paden)
             {
-                //if (pad.Value.length > 20)
-                if (pad.Value.closest == null)
+                if (pad.Value.closest == null)  // voor elk pad dat 'verwijderd' is
                 {
                     int _length = 25;
                     string _closest = null;
-                    foreach (KeyValuePair<int, Path> table in RoutingTables[pad.Key])
+                    foreach (KeyValuePair<int, Path> table in RoutingTables[pad.Key]) //kijk of er een korter pad te vinden is
                     {
                         if (Buren.ContainsKey(table.Key))
                         {
-                            if (table.Value.length < _length)
+                            if (table.Value.length < _length)   //zoja vervang de waarden met de waarden van dat pad
                             {
                                 _length = table.Value.length + 1;
                                 _closest = table.Key.ToString();
@@ -171,74 +158,61 @@ namespace NetwProg
                         }
                     }
 
-                    EditPath(pad.Key, _closest, _length);
+                    EditPath(pad.Key, _closest, _length); //verander het pad en stuur door
 
-                    if (_closest == null)
+                    if (_closest == null)   //als je geen beter pad hebt gevonden
                     {
                         foreach(KeyValuePair<int, Connection> buur in Buren)
                         {
-                            buur.Value.Write.WriteLine("DeletePath " + pad.Key);
+                            buur.Value.Write.WriteLine("DeletePath " + pad.Key);    //zeg tegen al je buren dat er geen pad meer bestaat en er dus een netwerkpartitie is
                         }
                     }
-                    //else
-                    //{
-                        //Paden[pad.Key].length = _length;
-                        //Paden[pad.Key].closest = _closest;
-                    //}
                 }
             }
-
-            /*foreach (int pad in toDelete)
-            {
-                //Paden.Remove(pad);
-                Paden[pad].length = 25;
-                Paden[pad].closest = null;
-            }*/
+            
         }
 
 
-        public static void ForwardDelete(int dest, string _closest)
+        public static void ForwardDelete(int dest, string _closest) //Verwijder recursief alle paden die langs een verbroken verbinding gaan
         {
             lock (lockobj)
             {
                 foreach (KeyValuePair<int, Path> pad in Paden)
                 {
-                    if (pad.Key == dest && pad.Value.closest == _closest)
+                    if (pad.Key == dest && pad.Value.closest == _closest)   //als je via de vorige persoon naar de bestemming moet volgens je pad, dan kan dat niet meer door de verbroken verbinding tussen de vorige en de bestemming.
                     {
-                        //EditPath(dest, null, 25);
-                        Paden[dest].closest = null;
+                        Paden[dest].closest = null; //verwijder dus ook jouw pad
                         Paden[dest].length = 25;
 
                         foreach (KeyValuePair<int, Connection> buur in Buren)
                         {
-                            buur.Value.Write.WriteLine("ForwardDelete " + dest + " " + MijnPoort.ToString());
+                            buur.Value.Write.WriteLine("ForwardDelete " + dest + " " + MijnPoort.ToString()); //en laat jouw buren dit ook weer doen
                         }
                     }
                 }
             }
         }
 
-        public static void Bericht(int poort, string bericht)
+        public static void Bericht(int poort, string bericht)   //stuur een bericht naar bestemming
         {
             lock (lockobj)
             {
-                if (!Buren.ContainsKey(poort))
+                if (!Buren.ContainsKey(poort))  //als bestemming niet je directe buur is
                 {
-                    if (!Paden.ContainsKey(poort) || Paden[poort].closest == null)
+                    if (!Paden.ContainsKey(poort) || Paden[poort].closest == null) //als er geen pad naar is
                     {
                         Console.WriteLine("Poort " + poort + " is niet bekend");
                         return;
                     }
-                    else
+                    else //stuur de dichtstbijzijnde buur dat ie het bericht moet doorsturen naar de bestemming
                     {
                         Buren[int.Parse(Paden[poort].closest)].Write.WriteLine("Doorsturen " + poort + " " + MijnPoort + ": " + bericht);
                         Console.WriteLine("Bericht voor " + poort + " doorgestuurd naar " + Paden[poort].closest);
                     }
                 }
 
-                else
+                else //als het je buur is: schrijf meteen naar je buur
                 {
-                    //Console.WriteLine("bericht verstuurd naar " + poort);
                     Buren[poort].Write.WriteLine("Print " + bericht);
                     Console.WriteLine("Bericht voor " + poort + " doorgestuurd naar " + Paden[poort].closest);
                 }
@@ -248,21 +222,21 @@ namespace NetwProg
 
         }
 
-        public static void Connect(int poort)
+        public static void Connect(int poort) //verbind met een nieuwe buur
         {
             if (!Buren.ContainsKey(poort))
             {
-                AddBuur(poort);
-                EditPath(poort, poort.ToString(), 1);
+                AddBuur(poort); // voeg de buur toe
+                EditPath(poort, poort.ToString(), 1);   //pad naar hem is nu 1
                 Buren[poort].Write.WriteLine("Buur " + MijnPoort);
             }
             else
             {
-                StuurBuren(Buren[poort]);
+                StuurBuren(Buren[poort]);   //als het al je buur was stuur dan nog eens je paden door
             }
         }
 
-        public static void AddBuur(int buur)
+        public static void AddBuur(int buur)    //voef buur toe en stuur je paden door
         {
             lock (lockobj)
             {
@@ -295,45 +269,44 @@ namespace NetwProg
         }
 
 
-        public static void EditPath(int dest, string _closest, int _length)
+        public static void EditPath(int dest, string _closest, int _length) //vergelijk pad met huidige pad en pas zo nodig aan
         {
             lock (lockobj)
             {
 
-                if ((Paden.ContainsKey(dest) && _length > Paden[dest].length))
+                if ((Paden.ContainsKey(dest) && _length > Paden[dest].length)) //pas niet aan als je eigen pad korter is
                 { return; }
                 else
                 {
-                    if (!Paden.ContainsKey((dest)))
+                    if (!Paden.ContainsKey((dest))) //maak een nieuw pad als je hier nog geen pad naar had
                     {
                         Path pad = new Path() { length = _length, closest = _closest };
                         Paden.Add(dest, pad);
 
                         
                     }
-                    else
+                    else        //pas anders alleen de waarden aan
                     {
                         Paden[dest].length = _length;
                         Paden[dest].closest = _closest;
 
                         
                     }
-                    //Console.WriteLine("Afstand naar " + dest + " is nu " + _length + " via " + _closest);         <- dit maakt de output erg groot
+                    //Console.WriteLine("Afstand naar " + dest + " is nu " + _length + " via " + _closest);         <- dit moet voor de opdracht maar maakt de output erg groot
                 }
 
                 {
                     foreach (KeyValuePair<int, Connection> buur in Buren)
                     {
-                        buur.Value.Write.WriteLine("Forward " + dest + " " + _length + " " + _closest + " " + MijnPoort);
+                        buur.Value.Write.WriteLine("Forward " + dest + " " + _length + " " + _closest + " " + MijnPoort);   //stuur je nieuwe pad door naar al je buren
                     }
                 }
-                //Console.WriteLine("Verbonden: " + dest);
 
-                if (_length > 20 && Paden.ContainsKey(dest))
+                if (_length > 20 && Paden.ContainsKey(dest))    //als je pad te lang wordt gaan we er vanuit dat er geen pad is
                 {
                     Paden[dest].length = 25;
                     Paden[dest].closest = null;
-                    VindNieuwePaden();
+                    //VindNieuwePaden();        <- Zoek betere paden,  veroorzaakt stackoverflow exception
                 }
 
             }

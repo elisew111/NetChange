@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetwProg
 {
-    public class Path
+    public class Path  
     {
         public int length { get; set; }
         public string closest { get; set; }

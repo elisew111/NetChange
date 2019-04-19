@@ -34,7 +34,7 @@ namespace NetwProg
         {
             Read = read; Write = write;
 
-            // Start het reader-loopje
+            // Start het reader-loopje met eigen thread
             new Thread(ReaderThread).Start();
         }
 
@@ -46,8 +46,9 @@ namespace NetwProg
                 while (true)
                 {
                     string input = Read.ReadLine();
-                    string type = input.Split(' ')[0];
-                    if (type == "Print") //print
+                    string type = input.Split(' ')[0]; //eerste woord verteld wat we moeten doen
+
+                    if (type == "Print") //print een bericht
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 2);
                         Console.WriteLine(delen[1]);
@@ -57,30 +58,29 @@ namespace NetwProg
                     {
                         int poort = int.Parse(input.Split()[1]);
 
-                        Program.EditPath(poort, poort.ToString(), 1);
-                        Program.StuurBuren(Program.Buren[poort]);
+                        Program.EditPath(poort, poort.ToString(), 1); //pad naar nieuwe buur is 1
+                        Program.StuurBuren(Program.Buren[poort]); //stuur hem mijn buren
 
                     }
-                    if (type == "Delete") //delete buurt
+                    if (type == "Delete") //delete buur
                     {
                         int poort = int.Parse(input.Split()[1]);
                         Program.Delete(poort);
                     }
-                    if (type == "Forward")
+                    if (type == "Forward") //ontvang een pad van een buur
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 5);
                         int dest = int.Parse(delen[1]);
                         int _length = int.Parse(delen[2]);
                         string _closest = delen[3];
-                        int poort = int.Parse(delen[4]);
+                        int poort = int.Parse(delen[4]); 
                     
-
-                        if(_closest == "null")
+                    if (_closest == "null")
                         { _closest = null; }
 
-                        lock (Program.lockobj)
+                        lock (Program.lockobj)  //zet pad in nested dictionary van alle paden van alle buren
                         {
-                            if (!Program.RoutingTables.ContainsKey(dest) && _length <= 20)
+                            if (!Program.RoutingTables.ContainsKey(dest) && _length <= 20) //als dit pad er nog niet in stond
                             {
                                 Dictionary<int, Path> table = new Dictionary<int, Path>();
                                 Program.RoutingTables.Add(dest, table);
@@ -91,16 +91,16 @@ namespace NetwProg
                         
                         }
 
-                        Program.EditPath(dest, poort.ToString(), (_length + 1));
+                        Program.EditPath(dest, poort.ToString(), (_length + 1)); //kijk of je eigen pad aangepast moet
                     }
-                    if (type == "Doorsturen")
+                    if (type == "Doorsturen") //ontvang doorgestuurd bericht
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 4);
                         int poort = int.Parse(delen[1]);
                         string bericht = delen[3];
                         Program.Bericht(poort, bericht);
                     }
-                    if (type == "GetPath")
+                    if (type == "GetPath") //geef je pad aan een buur
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 3);
                         int poort = int.Parse(delen[1]);
@@ -113,7 +113,7 @@ namespace NetwProg
                             }
                         }
                     }
-                    if (type == "ForwardDelete")
+                    if (type == "ForwardDelete") //je buur heeft een verbinding verbroken dus je moet je eigen paden controleren
                     {
                         string[] delen = input.Split(new char[] { ' ' }, 3);
                         int dest = int.Parse(delen[1]);
@@ -123,7 +123,8 @@ namespace NetwProg
                     if(type == "DeletePath")
                     {
                     int poort = int.Parse(input.Split(' ')[1]);
-                    Program.EditPath(poort, null, 25);
+                    Program.Paden[poort].closest = null;
+                    Program.Paden[poort].length = 25;
                     }
                 }
             
